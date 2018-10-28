@@ -1,0 +1,48 @@
+# Builds developing environment for rumors-api
+#
+version: '2'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.2
+    ports:
+      - "9200:9200"
+    volumes:
+      - "./db/esdata:/usr/share/elasticsearch/data"
+    environment:
+      - "path.repo=/usr/share/elasticsearch/data"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # Prevent elasticsearch eating up too much memory
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:6.3.2
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200 # Through docker network, not exposed port
+    ports:
+      - "5601:5601"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - "./db/mongodata:/data/db"
+
+  api:
+    image: node:10
+    container_name: answerfamily-api
+    depends_on:
+      - elasticsearch
+      - mongo
+    working_dir: "/srv/www"
+    entrypoint: npm start
+    volumes:
+      - ".:/srv/www"
+    environment:
+      PORT: 9000
+    ports:
+      - "9000:9000"

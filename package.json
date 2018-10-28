@@ -1,0 +1,26 @@
+{
+  "name": "answerfamily",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.1.0",
+    "dataloader": "^1.4.0",
+    "dotenv": "^6.1.0",
+    "elasticsearch": "^15.1.1",
+    "eslint": "^5.8.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "graphql": "^14.0.2",
+    "jest": "^23.6.0",
+    "mongodb": "^3.1.8",
+    "prettier": "^1.14.3"
+  }
+}
