@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`paragraphs lists unfiltered paragraphs 1`] = `
+Object {
+  "paragraphs": Array [
+    Object {
+      "id": "J8x7vWYBliUeHaXl6fdp",
+      "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
+    },
+    Object {
+      "id": "KMx9vWYBliUeHaXl9_ct",
+      "text": "學校對國中小實施同志教育，將成為合法",
+    },
+  ],
+}
+`;
