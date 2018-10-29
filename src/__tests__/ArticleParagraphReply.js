@@ -93,9 +93,46 @@ describe('Basic object type graph resolving', () => {
     expect(data).toMatchSnapshot();
   });
 
-  // it('loads from reply to article');
+  it('loads from reply to article', async () => {
+    const { data, errors } = await gql`
+      {
+        reply(id: "r1") {
+          paragraphReplies {
+            id
+            paragraph {
+              id
+              article {
+                id
+              }
+            }
+          }
+        }
+      }
+    `();
 
-  // it('loads from paragraph as well');
+    expect(errors).toBeUndefined();
+    expect(data).toMatchSnapshot();
+  });
 
-  // it('loads from paragraphReply as well');
+  it('loads from paragraph as well', async () => {
+    const { data, errors } = await gql`
+      {
+        paragraph(id: "p1") {
+          article {
+            id
+          }
+          paragraphReplies {
+            id
+            reply {
+              id
+              text
+            }
+          }
+        }
+      }
+    `();
+
+    expect(errors).toBeUndefined();
+    expect(data).toMatchSnapshot();
+  });
 });
