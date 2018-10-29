@@ -1,13 +1,21 @@
 type Query {
   ping: String
+
+  # List all paragraphs that meet the filter
   paragraphs(
     filter: ParagraphSearchFilter
     sort: [ParagraphSearchSort]
     first: Int
     skip: Int
   ): [Paragraph]
+
+  # Get single aritcle
   article(id: String!): Article
+
+  # Get single paragraph
   paragraph(id: String!): Paragraph
+
+  # Get single reply
   reply(id: String!): Reply
 }
 
@@ -28,7 +36,7 @@ type Paragraph {
   id: String
   text: String
   createdAt: String
-  aritcle: Article
+  article: Article
   paragraphReplies: [ParagraphReply]
   user: User
 }
@@ -38,7 +46,7 @@ Connection between paragraphs and replies.
 One paragraph may have multiple replies, and a reply can be used in multiple paragraphs.
 """
 type ParagraphReply {
-  id: String
+  id: ObjectId
   paragraph: Paragraph
   reply: Reply
   user: User
@@ -91,3 +99,8 @@ input ParagraphSearchSort {
   order: SortOrder
 }
 
+"""
+This scalar uses MongoDB object ID on server side
+and coerce to string on client slide.
+"""
+scalar ObjectId
