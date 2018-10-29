@@ -31,20 +31,3 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - "./db/mongodata:/data/db"
-
-  api:
-    image: node:10
-    container_name: answerfamily-api
-    depends_on:
-      - elasticsearch
-      - mongo
-    working_dir: "/srv/www"
-    entrypoint: npm start
-    volumes:
-      - ".:/srv/www"
-    environment:
-      PORT: 9000
-      ELASTICSEARCH_URL: elasticsearch:9200
-      MONGODB_URL: mongodb://root:example@mongo:27017
-    ports:
-      - "9000:9000"
