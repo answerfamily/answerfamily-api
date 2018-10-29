@@ -3,7 +3,7 @@ require('../../src/lib/catchUnhandledRejection');
 const mongoClient = require('../../src/lib/mongoClient');
 
 const SCHEMA = {
-  paragraph_replies: {
+  paragraphReplies: {
     bsonType: 'object',
     description: 'n-m join table of paragraphs and replies',
 
