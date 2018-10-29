@@ -9,7 +9,8 @@ const schema = makeExecutableSchema({
     encoding: 'utf-8',
   }),
   resolvers: {
-    Query: require('./resolvers/query'),
+    Query: require('./resolvers/Query'),
+    Article: require('./resolvers/Article'),
   },
 });
 

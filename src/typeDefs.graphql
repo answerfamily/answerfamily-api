@@ -6,6 +6,61 @@ type Query {
     first: Int
     skip: Int
   ): [Paragraph]
+  article(id: String!): Article
+  paragraph(id: String!): Paragraph
+  reply(id: String!): Reply
+}
+
+"""
+Actual article text being circulated.
+May be LINE messages, text from flyers, etc.
+"""
+type Article {
+  id: String
+  text: String
+  paragraphs: [Paragraph]
+}
+
+"""
+Replied paragraph from an article
+"""
+type Paragraph {
+  id: String
+  text: String
+  createdAt: String
+  aritcle: Article
+  paragraphReplies: [ParagraphReply]
+  user: User
+}
+
+"""
+Connection between paragraphs and replies.
+One paragraph may have multiple replies, and a reply can be used in multiple paragraphs.
+"""
+type ParagraphReply {
+  id: String
+  paragraph: Paragraph
+  reply: Reply
+  user: User
+}
+
+"""
+Reply to a paragraph
+"""
+type Reply {
+  id: String
+  text: String
+  reference: String
+
+  # author's note, for other editors to see
+  note: String
+}
+
+"""
+
+"""
+type User {
+  id: String
 }
 
 input ParagraphSearchFilter {
@@ -36,34 +91,3 @@ input ParagraphSearchSort {
   order: SortOrder
 }
 
-type Paragraph {
-  id: String
-  text: String
-  createdAt: String
-  aritcle: Article
-  paragraphReplies: [ParagraphReply]
-  user: User
-}
-
-type Article {
-  id: String
-  text: String
-  paragraphs: [Paragraph]
-}
-
-type ParagraphReply {
-  id: String
-  paragraph: Paragraph
-  reply: Reply
-  user: User
-}
-
-type User {
-  id: String
-}
-
-type Reply {
-  id: String
-  text: String
-  reference: String
-}
