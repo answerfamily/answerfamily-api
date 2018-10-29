@@ -8,10 +8,14 @@ const schema = makeExecutableSchema({
   typeDefs: fs.readFileSync(path.join(__dirname, `./typeDefs.graphql`), {
     encoding: 'utf-8',
   }),
-  resolvers: {
-    Query: require('./resolvers/Query'),
-    Article: require('./resolvers/Article'),
-  },
+  resolvers: fs
+    .readdirSync(path.join(__dirname, 'resolvers'))
+    .reduce((resolvers, fileName) => {
+      resolvers[
+        fileName.replace(/\.js$/, '')
+      ] = require(`./resolvers/${fileName}`);
+      return resolvers;
+    }, {}),
 });
 
 module.exports = schema;
