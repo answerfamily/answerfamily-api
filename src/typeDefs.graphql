@@ -91,11 +91,11 @@ enum ParagraphSearchSortBy {
   createdAt
 
   # Search result relevance
-  score
+  _score
 }
 
 input ParagraphSearchSort {
-  by: ParagraphSearchSortBy
+  by: ParagraphSearchSortBy!
   order: SortOrder
 }
 
