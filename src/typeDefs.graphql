@@ -1,3 +1,69 @@
 type Query {
   ping: String
+  paragraphs(
+    filter: ParagraphSearchFilter
+    sort: [ParagraphSearchSort]
+    first: Int
+    skip: Int
+  ): [Paragraph]
+}
+
+input ParagraphSearchFilter {
+  # matches only paragraphs that is inside the given text
+  inText: String,
+
+  # matches only paragraphs that contains these terms
+  contain: String,
+}
+
+"""
+Sort order for search results
+"""
+enum SortOrder {
+  DESC
+  ASC
+}
+
+enum ParagraphSearchSortBy {
+  createdAt
+
+  # Search result relevance
+  score
+}
+
+input ParagraphSearchSort {
+  by: ParagraphSearchSortBy
+  order: SortOrder
+}
+
+type Paragraph {
+  id: String
+  text: String
+  createdAt: String
+  aritcle: Article
+  paragraphReplies: [ParagraphReply]
+  user: User
+}
+
+type Article {
+  id: String
+  text: String
+  paragraphs: [Paragraph]
+}
+
+type ParagraphReply {
+  id: String
+  paragraph: Paragraph
+  reply: Reply
+  user: User
+}
+
+type User {
+  id: String
+}
+
+type Reply {
+  id: String
+  text: String
+  reference: String
 }
