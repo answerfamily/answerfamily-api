@@ -62,6 +62,8 @@ type Reply {
 
   # author's note, for other editors to see
   note: String
+
+  paragraphReplies: [ParagraphReply]
 }
 
 """
