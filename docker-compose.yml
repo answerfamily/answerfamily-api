@@ -44,5 +44,7 @@ services:
       - ".:/srv/www"
     environment:
       PORT: 9000
+      ELASTICSEARCH_URL: elasticsearch:9200
+      MONGODB_URL: mongodb://root:example@mongo:27017
     ports:
       - "9000:9000"
