@@ -16,6 +16,10 @@ const SCHEMA = {
   replies: {
     text: { type: 'text', analyzer: 'cjk_url_email' },
     reference: { type: 'text', analyzer: 'cjk_url_email' },
+
+    // Note for other editors
+    note: { type: 'text', analyzer: 'cjk_url_email' },
+
     createdAt: { type: 'date' },
     userId: { type: 'keyword' },
   },
