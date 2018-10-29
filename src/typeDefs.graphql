@@ -1,6 +1,4 @@
 type Query {
-  ping: String
-
   # List all paragraphs that meet the filter
   paragraphs(
     filter: ParagraphSearchFilter
