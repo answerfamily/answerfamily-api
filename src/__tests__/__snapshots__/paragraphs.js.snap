@@ -1,14 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`paragraphs does filtering 1`] = `
+Object {
+  "paragraphs": Array [
+    Object {
+      "id": "p1",
+      "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
+    },
+  ],
+}
+`;
+
+exports[`paragraphs does limiting 1`] = `
+Object {
+  "paragraphs": Array [
+    Object {
+      "id": "p1",
+      "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
+    },
+  ],
+}
+`;
+
+exports[`paragraphs does skipping 1`] = `
+Object {
+  "paragraphs": Array [
+    Object {
+      "id": "p2",
+      "text": "學校對國中小實施同志教育，將成為合法",
+    },
+  ],
+}
+`;
+
+exports[`paragraphs does sorting 1`] = `
+Object {
+  "paragraphs": Array [
+    Object {
+      "id": "p1",
+      "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
+    },
+    Object {
+      "id": "p2",
+      "text": "學校對國中小實施同志教育，將成為合法",
+    },
+  ],
+}
+`;
+
 exports[`paragraphs lists unfiltered paragraphs 1`] = `
 Object {
   "paragraphs": Array [
     Object {
-      "id": "J8x7vWYBliUeHaXl6fdp",
+      "id": "p1",
       "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
     },
     Object {
-      "id": "KMx9vWYBliUeHaXl9_ct",
+      "id": "p2",
       "text": "學校對國中小實施同志教育，將成為合法",
     },
   ],

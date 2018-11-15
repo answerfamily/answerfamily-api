@@ -13,7 +13,7 @@ exports.ES_FIXTURES = {
   '/paragraphs/p2': {
     articleId: 'article1',
     text: '學校對國中小實施同志教育，將成為合法',
-    createdAt: '2018-10-29T01:38:47.416Z',
+    createdAt: '2018-10-29T01:38:47.417Z',
   },
   '/replies/r1': {
     text:
@@ -39,14 +39,14 @@ exports.MONGO_FIXTURES = {
       _id: ObjectId('5bd677bb092a3ee2541b1a0d'),
       paragraphId: 'p1',
       replyId: 'r1',
-      createdAt: '2018-10-29T02:59:39.040Z',
+      createdAt: new Date('2018-10-29T02:59:39.040Z'),
     },
 
     {
       _id: ObjectId('5bd677ef092a3ee2541b1a1d'),
       paragraphId: 'p2',
       replyId: 'r2',
-      createdAt: '2018-10-29T02:59:39.040Z',
+      createdAt: new Date('2018-10-29T02:59:39.040Z'),
     },
   ],
 };
