@@ -52,4 +52,8 @@ module.exports = {
       body,
     });
   },
+
+  user(_, args, { userPromise }) {
+    return userPromise;
+  },
 };

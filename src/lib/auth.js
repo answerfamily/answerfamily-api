@@ -35,6 +35,9 @@ function getUser(token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, getKey, options, (err, decoded) => {
       if (err) {
+        // If token is expired, it's the same as not logged in
+        if (err.name === 'TokenExpiredError') return resolve(null);
+
         return reject(err);
       }
       resolve(decoded);

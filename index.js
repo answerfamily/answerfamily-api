@@ -12,11 +12,11 @@ const server = new ApolloServer({
   introspection: true, // Allow introspection in production as well
   context: ({ req }) => {
     const token = req.headers.authorization;
-    const user = getUser(token);
+    const userPromise = getUser(token);
 
     return {
       loaders: new DataLoaders(),
-      user,
+      userPromise,
     };
   },
 });

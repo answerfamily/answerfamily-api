@@ -15,6 +15,9 @@ type Query {
 
   # Get single reply
   reply(id: String!): Reply
+
+  # Get currently logged-in user. null if not logged in.
+  user: User
 }
 
 """
@@ -65,10 +68,13 @@ type Reply {
 }
 
 """
-
+User object from Auth0 JWT
 """
 type User {
+  # openid sub claim; user_id on auth0
   id: String
+  picture: String
+  name: String
 }
 
 input ParagraphSearchFilter {
