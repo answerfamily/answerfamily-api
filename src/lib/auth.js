@@ -26,10 +26,17 @@ const options = {
 
 /**
  *
- * @param {string} token - openid connect token string
+ * @param {string} cookie - cookie string containing idToken cookie
  * @returns {Promise<user|null>}
  */
-function getUser(token) {
+function getUser(cookie) {
+  const token = (
+    cookie
+      .split(';')
+      .map(c => c.trim())
+      .find(c => c.startsWith('idToken=')) || ''
+  ).replace(/^idToken=/, '');
+
   if (!token) return Promise.resolve(null);
 
   return new Promise((resolve, reject) => {

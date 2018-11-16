@@ -10,15 +10,10 @@ const PORT = process.env.PORT || 9000;
 const server = new ApolloServer({
   schema,
   introspection: true, // Allow introspection in production as well
-  context: ({ req }) => {
-    const token = req.headers.authorization;
-    const userPromise = getUser(token);
-
-    return {
-      loaders: new DataLoaders(),
-      userPromise,
-    };
-  },
+  context: ({ req }) => ({
+    loaders: new DataLoaders(),
+    userPromise: getUser(req.headers.cookie),
+  }),
 });
 server
   .listen({
