@@ -1,0 +1,7 @@
+*
+!index.js
+!db/schema
+!src
+!process.json
+!package.json
+!package-lock.json
