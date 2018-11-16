@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 9000;
 const server = new ApolloServer({
   schema,
   context: () => ({ loaders: new DataLoaders() }),
+  introspection: true, // Allow introspection in production as well
 });
 server
   .listen({
