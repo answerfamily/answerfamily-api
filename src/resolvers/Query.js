@@ -53,7 +53,7 @@ module.exports = {
     });
   },
 
-  user(_, args, { userPromise }) {
+  me(_, args, { userPromise }) {
     return userPromise;
   },
 };

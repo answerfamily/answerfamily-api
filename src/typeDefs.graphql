@@ -17,7 +17,7 @@ type Query {
   reply(id: String!): Reply
 
   # Get currently logged-in user. null if not logged in.
-  user: User
+  me: CurrentUser
 }
 
 """
@@ -70,8 +70,19 @@ type Reply {
 """
 User object from Auth0 JWT
 """
-type User {
+type CurrentUser {
   # openid sub claim; user_id on auth0
+  id: String
+  picture: String
+  name: String
+  email: String
+}
+
+"""
+Publuc user profile from auth0
+"""
+type User {
+  # user in DB
   id: String
   picture: String
   name: String
