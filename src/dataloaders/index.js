@@ -1,6 +1,7 @@
 const docLoaderFactory = require('./docLoaderFactory');
 const searchResultLoaderFactory = require('./searchResultLoaderFactory');
 const queryLoaderFactory = require('./queryLoaderFactory');
+const auth0UserLoaderFactory = require('./auth0UserLoaderFactory');
 
 module.exports = class DataLoaders {
   // List of data loaders
@@ -41,6 +42,10 @@ module.exports = class DataLoaders {
       'articleSources',
       'articleId'
     );
+  }
+
+  get auth0UserLoader() {
+    return this._checkOrSetLoader('auth0UserLoader', auth0UserLoaderFactory);
   }
 
   // inner-workings
