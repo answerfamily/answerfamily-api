@@ -13,7 +13,7 @@ const {
 } = require('../__fixtures__/articleParagraphReply');
 const mongoClient = require('../lib/mongoClient');
 
-describe('connectReplyWithParagraph', () => {
+describe('disconnectReplyAndParagraph', () => {
   beforeAll(async () => {
     await loadESFixtures(ES_FIXTURES);
     await loadMongoFixtures(MONGO_FIXTURES);
@@ -24,12 +24,12 @@ describe('connectReplyWithParagraph', () => {
     await unloadMongoFixtures(MONGO_FIXTURES);
   });
 
-  it('connects reply and paragraph', async () => {
-    const ids = { replyId: 'r1', paragraphId: 'p2' };
+  it('disconnects reply and paragraph', async () => {
+    const ids = { replyId: 'r1', paragraphId: 'p1' };
 
     const { errors, data } = await gql`
       mutation($replyId: String!, $paragraphId: String!) {
-        connectReplyWithParagraph(
+        disconnectReplyAndParagraph(
           replyId: $replyId
           paragraphId: $paragraphId
         ) {
@@ -45,23 +45,27 @@ describe('connectReplyWithParagraph', () => {
         }
       }
     `(ids, {
-      userPromise: Promise.resolve({ iss: 'user-id' }),
+      userPromise: Promise.resolve({ iss: 'author1' }),
     });
 
     expect(errors).toBeUndefined();
-    expect(data.connectReplyWithParagraph).toMatchSnapshot();
+    expect(data.disconnectReplyAndParagraph).toMatchSnapshot();
 
-    // cleanup
+    // cleanup -- add back deleted reply
     const { db } = await mongoClient;
     await db
       .collection('paragraphReplies')
-      .deleteOne({ replyId: 'r1', paragraphId: 'p2' });
+      .insertOne(
+        MONGO_FIXTURES.paragraphReplies.find(
+          ({ replyId, paragraphId }) => replyId === 'r1' && paragraphId === 'p1'
+        )
+      );
   });
 
-  it('cannot connect already connected reply and paragraph', async () => {
+  it('cannot disconnect when paragraphReply is not by current user', async () => {
     const { errors } = await gql`
       mutation {
-        connectReplyWithParagraph(replyId: "r1", paragraphId: "p1") {
+        disconnectReplyAndParagraph(replyId: "r1", paragraphId: "p1") {
           paragraphReplies {
             reply {
               id
@@ -72,18 +76,18 @@ describe('connectReplyWithParagraph', () => {
     `(
       {},
       {
-        userPromise: Promise.resolve({ iss: 'user-id' }),
+        userPromise: Promise.resolve({ iss: 'another-user' }),
       }
     );
 
-    // Should be duplicate-key error
+    // Should be forbidden
     expect(errors).toMatchSnapshot();
   });
 
   it('blocks non-logged in users', async () => {
     const { errors } = await gql`
       mutation {
-        connectReplyWithParagraph(replyId: "r1", paragraphId: "p2") {
+        disconnectReplyAndParagraph(replyId: "r1", paragraphId: "p2") {
           paragraphReplies {
             reply {
               id
@@ -93,7 +97,7 @@ describe('connectReplyWithParagraph', () => {
       }
     `();
 
-    // Should be unauthorzied
+    // Should be unauthorized
     expect(errors).toMatchSnapshot();
   });
 });

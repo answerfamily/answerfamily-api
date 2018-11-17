@@ -163,10 +163,23 @@ module.exports = {
   async disconnectReplyAndParagraph(
     _,
     { replyId, paragraphId },
-    { userPromise }
+    { userPromise, loaders }
   ) {
     const user = await userPromise;
     assertLoggedIn(user);
+
+    const { db } = await mongoClient;
+    const paragraphReply = await db
+      .collection('paragraphReplies')
+      .findOne({ replyId, paragraphId });
+    assertOwnership(paragraphReply, user);
+
+    await db.collection('paragraphReplies').deleteOne({ replyId, paragraphId });
+
+    return loaders.docLoader.load({
+      index: 'paragraphs',
+      id: paragraphId,
+    });
   },
 
   async addReplyToParagraph(

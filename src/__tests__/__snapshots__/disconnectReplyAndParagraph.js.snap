@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`disconnectReplyAndParagraph blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`disconnectReplyAndParagraph cannot disconnect when paragraphReply is not by current user 1`] = `
+Array [
+  [GraphQLError: Only author can perform such action],
+]
+`;
+
+exports[`disconnectReplyAndParagraph disconnects reply and paragraph 1`] = `
+Object {
+  "paragraphReplies": Array [],
+}
+`;
