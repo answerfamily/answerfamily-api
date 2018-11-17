@@ -15,12 +15,10 @@ const mongoClient = require('../src/lib/mongoClient');
  */
 exports.loadESFixtures = async function loadESFixtures(fixtureMap) {
   const body = [];
-  const indexes = new Set();
   Object.keys(fixtureMap).forEach(key => {
     const [, _index, _id] = key.split('/');
     body.push({ index: { _index, _type: '_doc', _id } });
     body.push(fixtureMap[key]);
-    indexes.add(_index);
   });
 
   // refresh() should be invoked after bulk insert, or re-index happens every 1 seconds
