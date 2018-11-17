@@ -58,7 +58,31 @@ describe('connectReplyWithParagraph', () => {
       .deleteOne({ replyId: 'r1', paragraphId: 'p2' });
   });
 
-  // it('cannot connect already connected reply and paragraph', async () => {});
+  it('cannot connect already connected reply and paragraph', async () => {
+    const { errors } = await gql`
+      mutation {
+        connectReplyWithParagraph(replyId: "r1", paragraphId: "p1") {
+          paragraphReplies {
+            reply {
+              id
+            }
+            user {
+              id
+              name
+            }
+          }
+        }
+      }
+    `(
+      {},
+      {
+        userPromise: Promise.resolve({ iss: 'user-id' }),
+      }
+    );
+
+    // Should be duplicate-key error
+    expect(errors).toMatchSnapshot();
+  });
 
   // it('blocks non-logged in users', async () => {});
 });
