@@ -8,4 +8,7 @@ module.exports = {
   paragraphReplies({ id }, _, { loaders }) {
     return loaders.paragraphRepliesByParagraphIdLoader.load(id);
   },
+  user({ userId }, _, { loaders }) {
+    return loaders.auth0UserLoader.load(userId);
+  },
 };

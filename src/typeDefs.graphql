@@ -68,7 +68,7 @@ Reply to a paragraph
 type Reply {
   id: String
   text: String
-  reference: String
+  user: User
 
   # author's note, for other editors to see
   note: String

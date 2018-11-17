@@ -27,7 +27,7 @@ const options = {
 /**
  *
  * @param {string} cookie - cookie string containing idToken cookie
- * @returns {Promise<user|null>}
+ * @returns {Promise<user|null>} Promise that resolves to id-token payload (https://auth0.com/docs/tokens/id-token#id-token-payload)
  */
 function getUser(cookie) {
   const token = (

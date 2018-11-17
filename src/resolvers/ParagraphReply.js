@@ -12,4 +12,8 @@ module.exports = {
       id: replyId,
     });
   },
+
+  user({ userId }, _, { loaders }) {
+    return loaders.auth0UserLoader.load(userId);
+  },
 };
