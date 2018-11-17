@@ -26,6 +26,20 @@ type Query {
   me: CurrentUser
 }
 
+type Mutation {
+  createArticle(article: ArticleInput): Article
+  addParagraphToArticle(articleId: String!, paragraph: ParagraphInput!): Article
+
+  # Deletes paragraph and all its paragraphReplies. Reply would remain.
+  deleteParagraph(paragraphId: String!): Article
+
+  # Connects existing reply with a paragraph
+  connectReplyWithParagraph(replyId: String!, paragraphId: String!): Paragraph
+  disconnectReplyAndParagraph(replyId: String!, paragraphId: String!): Paragraph
+
+  addReplyToParagraph(paragraphId: String!, reply: ReplyInput!): Paragraph
+}
+
 """
 Actual article text being circulated.
 May be LINE messages, text from flyers, etc.
@@ -38,6 +52,11 @@ type Article {
   createdAt: String
 }
 
+input ArticleInput {
+  text: String!
+  paragraphs: [ParagraphInput]
+}
+
 """
 Replied paragraph from an article
 """
@@ -48,6 +67,13 @@ type Paragraph {
   article: Article
   paragraphReplies: [ParagraphReply]
   user: User
+}
+
+input ParagraphInput {
+  text: String!,
+
+  # Re-use existing replies
+  replyIds: [String]
 }
 
 """
@@ -76,6 +102,11 @@ type Reply {
   createdAt: String
 
   paragraphReplies: [ParagraphReply]
+}
+
+input ReplyInput {
+  text: String!
+  note: String
 }
 
 """

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`connectReplyWithParagraph connects reply and paragraph 1`] = `
+Object {
+  "paragraphReplies": Array [
+    Object {
+      "reply": Object {
+        "id": "r2",
+      },
+      "user": Object {
+        "id": "author1",
+        "name": "[mock] name of author1",
+      },
+    },
+    Object {
+      "reply": Object {
+        "id": "r1",
+      },
+      "user": Object {
+        "id": "user-id",
+        "name": "[mock] name of user-id",
+      },
+    },
+  ],
+}
+`;
