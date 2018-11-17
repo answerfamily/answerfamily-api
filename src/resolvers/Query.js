@@ -1,6 +1,6 @@
 const mongoClient = require('../lib/mongoClient');
 
-module.exports = {
+const Query = {
   article(_, { id }, { loaders }) {
     return loaders.docLoader.load({ index: 'articles', id });
   },
@@ -71,3 +71,5 @@ module.exports = {
     return userPromise;
   },
 };
+
+module.exports = Query;

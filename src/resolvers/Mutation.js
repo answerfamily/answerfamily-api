@@ -86,7 +86,7 @@ async function createParagraphs(articleId, paragraphs, userId) {
   return paragraphIds;
 }
 
-module.exports = {
+const Mutation = {
   async createArticle(_, { article }, { userPromise }) {
     const user = await userPromise;
     assertLoggedIn(user);
@@ -216,3 +216,5 @@ module.exports = {
     });
   },
 };
+
+module.exports = Mutation;
