@@ -36,13 +36,17 @@ const SCHEMA = {
         bsonType: 'string',
         description: 'Elasticsearch ID of article',
       },
+      note: {
+        bsonType: 'string',
+        description: 'describes relationship of the article and the URL',
+      },
       url: {
         bsonType: 'string',
         description: 'URL to the source',
       },
       userId: {
         bsonType: 'string',
-        description: 'user id that reported such source',
+        description: 'user id that reported such reference',
       },
       createdAt: {
         bsonType: 'date',

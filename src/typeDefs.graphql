@@ -83,6 +83,9 @@ Where the article is from
 """
 type ArticleSource {
   article: Article
+
+  # author's note of this source for other editors, probably indicating how the article can be retrieved
+  note: String
   url: String
 
   # The person that reports such occurrence
