@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addParagraphToArticle blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`addParagraphToArticle connects reply and paragraph 1`] = `
+Array [
+  Object {
+    "paragraphReplies": Array [
+      Object {
+        "reply": Object {
+          "id": "r1",
+        },
+      },
+    ],
+    "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
+    "user": Object {
+      "id": "author1",
+    },
+  },
+  Object {
+    "paragraphReplies": Array [
+      Object {
+        "reply": Object {
+          "id": "r2",
+        },
+      },
+    ],
+    "text": "學校對國中小實施同志教育，將成為合法",
+    "user": Object {
+      "id": "author1",
+    },
+  },
+  Object {
+    "paragraphReplies": Array [
+      Object {
+        "reply": Object {
+          "id": "r1",
+        },
+      },
+    ],
+    "text": "明年五月台灣將成為亞洲第一個同性可合法結婚的國家",
+    "user": Object {
+      "id": "user-id",
+    },
+  },
+]
+`;
