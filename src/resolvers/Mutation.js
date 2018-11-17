@@ -242,7 +242,8 @@ const Mutation = {
     assertLoggedIn(user);
 
     const text = reply.text.trim();
-    const replyId = generateId(text);
+    const note = reply.note.trim();
+    const replyId = generateId(`${text}|${note}`);
 
     // Create reply
     await esClient.update({
@@ -250,9 +251,11 @@ const Mutation = {
       type: '_doc',
       id: replyId,
       body: {
+        // No-op for duplicated reply
+        script: { source: 'ctx._source' },
         upsert: {
           text,
-          note: reply.note,
+          note,
           createdAt: new Date(),
           userId: user.iss,
         },

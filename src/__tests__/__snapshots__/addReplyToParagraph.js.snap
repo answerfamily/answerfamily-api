@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addReplyToParagraph blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`addReplyToParagraph creates reply and paragraphReplies 1`] = `
+Array [
+  Object {
+    "reply": Object {
+      "note": "notenote",
+      "text": "明年五月台灣將成為亞洲第一個同性可合法結婚的國家",
+      "user": Object {
+        "id": "user-id",
+      },
+    },
+    "user": Object {
+      "id": "user-id",
+    },
+  },
+  Object {
+    "reply": Object {
+      "note": null,
+      "text": "「外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單」這句話其實並不算錯，但實務上並不會有「拖垮健保」的狀況，也跟同性婚姻關係不大，所以不用太擔心唷。",
+      "user": Object {
+        "id": "author1",
+      },
+    },
+    "user": Object {
+      "id": "author1",
+    },
+  },
+]
+`;
