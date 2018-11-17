@@ -171,12 +171,29 @@ const Mutation = {
     const user = await userPromise;
     assertLoggedIn(user);
 
-    const paragraph = loaders.docLoader.load({
+    const targetParagraph = await loaders.docLoader.load({
       index: 'paragraphs',
       id: paragraphId,
     });
-    if (!paragraph) throw new UserInputError('paragraph not exist');
-    assertOwnership(paragraph, user);
+    if (!targetParagraph) throw new UserInputError('paragraph not exist');
+    assertOwnership(targetParagraph, user);
+
+    // Delete paragraph
+    await esClient.delete({
+      index: 'paragraphs',
+      type: '_doc',
+      id: paragraphId,
+      refresh: true,
+    });
+
+    // Delete associated paragraphReplies;
+    const { db } = await mongoClient;
+    await db.collection('paragraphReplies').deleteMany({ paragraphId });
+
+    return loaders.docLoader.load({
+      index: 'articles',
+      id: targetParagraph.articleId,
+    });
   },
 
   async connectReplyWithParagraph(

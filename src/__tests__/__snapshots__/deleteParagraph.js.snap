@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deleteParagraph blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`deleteParagraph cannot disconnect when paragraphReply is not by current user 1`] = `
+Array [
+  [GraphQLError: Only author can perform such action],
+]
+`;
+
+exports[`deleteParagraph deletes paragraph and associated paragraphReplies 1`] = `
+Object {
+  "paragraphs": Array [
+    Object {
+      "id": "p2",
+    },
+  ],
+}
+`;
