@@ -8,15 +8,15 @@ const DataLoaders = require('../src/dataloaders');
  * Usage:
  * const result = await gql`query{...}`(variable)
  *
- * @returns {(variable: Object) => Promise<GraphQLResult>}
+ * @returns {(variable: Object, context: Object) => Promise<GraphQLResult>}
  */
 function gql(query, ...substitutes) {
-  return variables =>
+  return (variables, context = {}) =>
     graphql(
       schema,
       String.raw(query, ...substitutes),
       null,
-      { loaders: new DataLoaders() },
+      { loaders: new DataLoaders(), ...context },
       variables
     );
 }
