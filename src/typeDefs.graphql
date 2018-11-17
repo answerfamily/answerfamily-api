@@ -7,6 +7,12 @@ type Query {
     skip: Int
   ): [Paragraph]
 
+  # List all paragraphReplies
+  paragraphReplies(
+    first: Int
+    skip: Int
+  ): [ParagraphReply]
+
   # Get single aritcle
   article(id: String!): Article
 

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`paragraphReplies does limiting 1`] = `
+Object {
+  "paragraphReplies": Array [
+    Object {
+      "paragraph": Object {
+        "id": "p2",
+      },
+      "reply": Object {
+        "id": "r2",
+      },
+    },
+  ],
+}
+`;
+
+exports[`paragraphReplies does skipping 1`] = `
+Object {
+  "paragraphReplies": Array [
+    Object {
+      "paragraph": Object {
+        "id": "p1",
+      },
+      "reply": Object {
+        "id": "r1",
+      },
+    },
+  ],
+}
+`;
+
+exports[`paragraphReplies lists unfiltered paragraphReplies 1`] = `
+Object {
+  "paragraphReplies": Array [
+    Object {
+      "paragraph": Object {
+        "id": "p2",
+      },
+      "reply": Object {
+        "id": "r2",
+      },
+    },
+    Object {
+      "paragraph": Object {
+        "id": "p1",
+      },
+      "reply": Object {
+        "id": "r1",
+      },
+    },
+  ],
+}
+`;

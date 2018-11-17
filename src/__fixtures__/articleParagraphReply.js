@@ -46,7 +46,7 @@ exports.MONGO_FIXTURES = {
       _id: ObjectId('5bd677ef092a3ee2541b1a1d'),
       paragraphId: 'p2',
       replyId: 'r2',
-      createdAt: new Date('2018-10-29T02:59:39.040Z'),
+      createdAt: new Date('2018-10-29T02:59:39.041Z'),
     },
   ],
 };

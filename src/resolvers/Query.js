@@ -1,3 +1,5 @@
+const mongoClient = require('../lib/mongoClient');
+
 module.exports = {
   article(_, { id }, { loaders }) {
     return loaders.docLoader.load({ index: 'articles', id });
@@ -51,6 +53,18 @@ module.exports = {
       index: 'paragraphs',
       body,
     });
+  },
+
+  async paragraphReplies(_, { first = 10, skip = 0 }) {
+    const { db } = await mongoClient;
+
+    return db
+      .collection('paragraphReplies')
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(first)
+      .skip(skip)
+      .toArray();
   },
 
   me(_, args, { userPromise }) {
