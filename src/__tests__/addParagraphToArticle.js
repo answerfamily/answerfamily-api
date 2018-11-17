@@ -25,7 +25,7 @@ describe('addParagraphToArticle', () => {
     await unloadMongoFixtures(MONGO_FIXTURES);
   });
 
-  it('connects reply and paragraph', async () => {
+  it('creates paragraph and paragraphReplies', async () => {
     const text = '明年五月台灣將成為亞洲第一個同性可合法結婚的國家';
 
     const { errors, data } = await gql`

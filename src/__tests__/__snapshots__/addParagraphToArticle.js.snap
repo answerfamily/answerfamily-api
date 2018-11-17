@@ -6,7 +6,7 @@ Array [
 ]
 `;
 
-exports[`addParagraphToArticle connects reply and paragraph 1`] = `
+exports[`addParagraphToArticle creates paragraph and paragraphReplies 1`] = `
 Array [
   Object {
     "paragraphReplies": Array [
