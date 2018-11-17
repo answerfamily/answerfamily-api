@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`connectReplyWithParagraph blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
 exports[`connectReplyWithParagraph cannot connect already connected reply and paragraph 1`] = `
 Array [
   [GraphQLError: E11000 duplicate key error collection: answerfamily.paragraphReplies index: paragraphId-replyId-unique dup key: { : "p1", : "r1" }],

@@ -84,5 +84,24 @@ describe('connectReplyWithParagraph', () => {
     expect(errors).toMatchSnapshot();
   });
 
-  // it('blocks non-logged in users', async () => {});
+  it('blocks non-logged in users', async () => {
+    const { errors } = await gql`
+      mutation {
+        connectReplyWithParagraph(replyId: "r1", paragraphId: "p2") {
+          paragraphReplies {
+            reply {
+              id
+            }
+            user {
+              id
+              name
+            }
+          }
+        }
+      }
+    `();
+
+    // Should be duplicate-key error
+    expect(errors).toMatchSnapshot();
+  });
 });
