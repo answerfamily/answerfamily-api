@@ -55,11 +55,39 @@ const SCHEMA = {
   },
 };
 
+const INDICES = {
+  paragraphReplies: [
+    {
+      name: 'paragraphId-replyId-unique',
+      key: { paragraphId: 1, replyId: 1 },
+      unique: true,
+    },
+    {
+      name: 'createdAt-sort',
+      key: { createdAt: -1 },
+    },
+  ],
+  articleSources: [
+    {
+      name: 'articleId',
+      key: { articleId: 1 },
+    },
+  ],
+};
+
 mongoClient.then(async ({ client, db }) => {
   await Promise.all(
-    Object.keys(SCHEMA).map(indexName =>
-      db.createCollection(indexName, {
-        validator: { $jsonSchema: SCHEMA[indexName] },
+    Object.keys(SCHEMA).map(collectionName =>
+      db.createCollection(collectionName, {
+        validator: { $jsonSchema: SCHEMA[collectionName] },
+      })
+    )
+  ).then(
+    Promise.all(
+      Object.keys(INDICES).map(collectionName => {
+        return db
+          .collection(collectionName)
+          .createIndexes(INDICES[collectionName]);
       })
     )
   );
