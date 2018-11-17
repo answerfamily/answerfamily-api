@@ -34,6 +34,8 @@ type Article {
   id: String
   text: String
   paragraphs: [Paragraph]
+  sources: [ArticleSource]
+  createdAt: String
 }
 
 """
@@ -57,6 +59,7 @@ type ParagraphReply {
   paragraph: Paragraph
   reply: Reply
   user: User
+  createdAt: String
 }
 
 """
@@ -70,7 +73,22 @@ type Reply {
   # author's note, for other editors to see
   note: String
 
+  createdAt: String
+
   paragraphReplies: [ParagraphReply]
+}
+
+"""
+Where the article is from
+"""
+type ArticleSource {
+  article: Article
+  url: String
+
+  # The person that reports such occurrence
+  user: User
+
+  createdAt: String
 }
 
 """

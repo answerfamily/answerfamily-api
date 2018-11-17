@@ -4,6 +4,7 @@ exports.ES_FIXTURES = {
   '/articles/article1': {
     text:
       '大法官已釋憲，如果年底公投沒達到500萬票，明年五月台灣將成為亞洲第一個同性可合法結婚的國家。\n\n外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單。\n\n學校對國中小實施同志教育，將成為合法。\n\n這次公投要主動向票務員領10、11、12三張公投單選 “同意”\n\n11/24一定要去公投!讓我們盡一份心力保護後代子孫。',
+    createdAt: new Date('2018-10-29T02:59:39.039Z')
   },
   '/paragraphs/p1': {
     articleId: 'article1',
@@ -47,6 +48,14 @@ exports.MONGO_FIXTURES = {
       paragraphId: 'p2',
       replyId: 'r2',
       createdAt: new Date('2018-10-29T02:59:39.041Z'),
+    },
+  ],
+
+  articleSources: [
+    {
+      articleId: 'article1',
+      createdAt: new Date('2018-10-29T02:59:39.043Z'),
+      url: 'http://google.com',
     },
   ],
 };

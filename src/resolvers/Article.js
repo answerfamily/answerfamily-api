@@ -11,4 +11,7 @@ module.exports = {
       },
     });
   },
+  sources({ id }, _, { loaders }) {
+    return loaders.articleSourcesLoader.load(id);
+  },
 };

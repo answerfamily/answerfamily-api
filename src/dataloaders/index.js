@@ -18,7 +18,7 @@ module.exports = class DataLoaders {
 
   get paragraphRepliesByParagraphIdLoader() {
     return this._checkOrSetLoader(
-      'queryLoader',
+      'paragraphRepliesByParagraphIdLoader',
       queryLoaderFactory,
       'paragraphReplies',
       'paragraphId'
@@ -27,10 +27,19 @@ module.exports = class DataLoaders {
 
   get paragraphRepliesByReplyIdLoader() {
     return this._checkOrSetLoader(
-      'queryLoader',
+      'paragraphRepliesByReplyIdLoader',
       queryLoaderFactory,
       'paragraphReplies',
       'replyId'
+    );
+  }
+
+  get articleSourcesLoader() {
+    return this._checkOrSetLoader(
+      'articleSourcesLoader',
+      queryLoaderFactory,
+      'articleSources',
+      'articleId'
     );
   }
 

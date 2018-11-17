@@ -3,6 +3,7 @@
 exports[`Basic object type graph resolving loads from article to reply 1`] = `
 Object {
   "article": Object {
+    "createdAt": "2018-10-29T02:59:39.039Z",
     "paragraphs": Array [
       Object {
         "id": "p1",
@@ -29,6 +30,14 @@ Object {
           },
         ],
         "text": "學校對國中小實施同志教育，將成為合法",
+      },
+    ],
+    "sources": Array [
+      Object {
+        "article": Object {
+          "id": "article1",
+        },
+        "url": "http://google.com",
       },
     ],
     "text": "大法官已釋憲，如果年底公投沒達到500萬票，明年五月台灣將成為亞洲第一個同性可合法結婚的國家。

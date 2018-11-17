@@ -20,6 +20,33 @@ const SCHEMA = {
       createdAt: {
         bsonType: 'date',
       },
+      userId: {
+        bsonType: 'string',
+        description: 'user id that created the paragraph-reply connection',
+      },
+    },
+  },
+
+  articleSources: {
+    bsonType: 'object',
+    description: 'where the article comes from',
+    required: ['articleId', 'createdAt'],
+    properties: {
+      articleId: {
+        bsonType: 'string',
+        description: 'Elasticsearch ID of article',
+      },
+      url: {
+        bsonType: 'string',
+        description: 'URL to the source',
+      },
+      userId: {
+        bsonType: 'string',
+        description: 'user id that reported such source',
+      },
+      createdAt: {
+        bsonType: 'date',
+      },
     },
   },
 };
