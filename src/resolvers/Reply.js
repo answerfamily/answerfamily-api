@@ -1,6 +1,7 @@
 module.exports = {
-  paragraphReplies({ id }, _, { loaders }) {
-    return loaders.paragraphRepliesByReplyIdLoader.load(id);
+  async paragraphReplies({ id }, _, { loaders }) {
+    const result = await loaders.paragraphRepliesByReplyIdLoader.load(id)
+    return result || [];
   },
 
   user({ userId }, _, { loaders }) {

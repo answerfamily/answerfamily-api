@@ -5,8 +5,9 @@ module.exports = {
       id: articleId,
     });
   },
-  paragraphReplies({ id }, _, { loaders }) {
-    return loaders.paragraphRepliesByParagraphIdLoader.load(id);
+  async paragraphReplies({ id }, _, { loaders }) {
+    const result = await loaders.paragraphRepliesByParagraphIdLoader.load(id);
+    return result || [];
   },
   user({ userId }, _, { loaders }) {
     return loaders.auth0UserLoader.load(userId);
