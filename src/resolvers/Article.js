@@ -16,4 +16,8 @@ module.exports = {
     const result = await loaders.articleSourcesLoader.load(id);
     return result || [];
   },
+
+  user({ userId }, _, { loaders }) {
+    return loaders.auth0UserLoader.load(userId);
+  },
 };

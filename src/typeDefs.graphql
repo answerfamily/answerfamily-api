@@ -50,11 +50,13 @@ type Article {
   paragraphs: [Paragraph]
   sources: [ArticleSource]
   createdAt: String
+  user: User
 }
 
 input ArticleInput {
   text: String!
   paragraphs: [ParagraphInput]
+  sources: [ArticleSourceInput]
 }
 
 """
@@ -129,6 +131,12 @@ type ArticleSource {
   user: User
 
   createdAt: String
+}
+
+input ArticleSourceInput {
+  # author's note of this source for other editors, probably indicating how the article can be retrieved
+  note: String
+  url: String
 }
 
 """

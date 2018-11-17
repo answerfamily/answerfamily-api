@@ -29,12 +29,14 @@ async function createParagraphReplies(paragraphId, replyIds, userId) {
   if (!paragraphId || replyIds.length === 0 || !userId) {
     throw new Error('cannot create paragraph replies');
   }
+  const now = new Date();
   const { db } = await mongoClient;
+
   return db.collection('paragraphReplies').insertMany(
     replyIds.map(replyId => ({
       paragraphId,
       replyId,
-      createdAt: new Date(),
+      createdAt: now,
       userId,
     }))
   );
@@ -86,6 +88,29 @@ async function createParagraphs(articleId, paragraphs, userId) {
   return paragraphIds;
 }
 
+/**
+ *
+ * @param {string} articleId
+ * @param {object[]} sources - instances of ArticleSourceInput
+ * @param {string} userId
+ */
+async function createSources(articleId, sources, userId) {
+  if (!articleId || sources.length === 0 || !userId) {
+    throw new Error('cannot create article source');
+  }
+  const now = new Date();
+  const { db } = await mongoClient;
+  return db.collection('articleSources').insertMany(
+    sources.map(({ note, url }) => ({
+      articleId,
+      note,
+      url,
+      userId,
+      createdAt: now,
+    }))
+  );
+}
+
 const Mutation = {
   async createArticle(_, { article }, { userPromise }) {
     const user = await userPromise;
@@ -102,16 +127,25 @@ const Mutation = {
       type: '_doc',
       id: articleId,
       body: {
+        // No-op, we just want to fetch existing / upsert new article new while getting the article
+        // content in same request.
+        script: { source: 'ctx._source' },
         upsert: {
           text,
           createdAt: new Date(),
           userId: user.iss,
         },
       },
+      refresh: true,
+      _source: true,
     });
 
     if (article.paragraphs && article.paragraphs.length > 0) {
       await createParagraphs(articleId, article.paragraphs, user.iss);
+    }
+
+    if (article.sources && article.sources.length > 0) {
+      await createSources(articleId, article.sources, user.iss);
     }
 
     return { ..._source, id: articleId };

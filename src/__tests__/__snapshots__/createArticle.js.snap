@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createArticle blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`createArticle connects reply and paragraph 1`] = `
+Object {
+  "paragraphs": Array [
+    Object {
+      "text": "新聞",
+      "user": Object {
+        "id": "user-id",
+      },
+    },
+  ],
+  "sources": Array [
+    Object {
+      "note": "真的",
+      "url": "http://google.com",
+      "user": Object {
+        "id": "user-id",
+      },
+    },
+  ],
+  "text": "新文章ㄛ",
+  "user": Object {
+    "id": "user-id",
+  },
+}
+`;
