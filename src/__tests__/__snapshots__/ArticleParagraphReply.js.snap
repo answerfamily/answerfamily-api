@@ -6,9 +6,11 @@ Object {
     "createdAt": "2018-10-29T02:59:39.039Z",
     "paragraphs": Array [
       Object {
+        "canDelete": false,
         "id": "p1",
         "paragraphReplies": Array [
           Object {
+            "canDelete": false,
             "id": "5bd677bb092a3ee2541b1a0d",
             "reply": Object {
               "id": "r1",
@@ -19,9 +21,11 @@ Object {
         "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
       },
       Object {
+        "canDelete": false,
         "id": "p2",
         "paragraphReplies": Array [
           Object {
+            "canDelete": false,
             "id": "5bd677ef092a3ee2541b1a1d",
             "reply": Object {
               "id": "r2",
@@ -77,11 +81,13 @@ Object {
   "reply": Object {
     "paragraphReplies": Array [
       Object {
+        "canDelete": true,
         "id": "5bd677bb092a3ee2541b1a0d",
         "paragraph": Object {
           "article": Object {
             "id": "article1",
           },
+          "canDelete": true,
           "id": "p1",
         },
       },

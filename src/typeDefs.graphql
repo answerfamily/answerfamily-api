@@ -67,6 +67,9 @@ type Paragraph {
   article: Article
   paragraphReplies: [ParagraphReply]
   user: User
+
+  # If the current user can delete this paragraph
+  canDelete: Boolean
 }
 
 input ParagraphInput {
@@ -86,6 +89,9 @@ type ParagraphReply {
   reply: Reply
   user: User
   createdAt: String
+
+  # If the current user can delete this paragraphReply
+  canDelete: Boolean
 }
 
 """

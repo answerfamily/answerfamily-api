@@ -35,7 +35,9 @@ describe('Basic object type graph resolving', () => {
                 id
                 text
               }
+              canDelete
             }
+            canDelete
           }
           createdAt
           sources {
@@ -46,7 +48,7 @@ describe('Basic object type graph resolving', () => {
           }
         }
       }
-    `();
+    `({}, { userPromise: Promise.resolve({ iss: 'other-author' }) });
 
     expect(errors).toBeUndefined();
     expect(data).toMatchSnapshot();
@@ -63,11 +65,18 @@ describe('Basic object type graph resolving', () => {
               article {
                 id
               }
+              canDelete
             }
+            canDelete
           }
         }
       }
-    `();
+    `(
+      {},
+      {
+        userPromise: Promise.resolve({ iss: 'author1' }),
+      }
+    );
 
     expect(errors).toBeUndefined();
     expect(data).toMatchSnapshot();
