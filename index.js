@@ -14,6 +14,10 @@ const server = new ApolloServer({
     loaders: new DataLoaders(),
     userPromise: getUser(req.headers.cookie),
   }),
+  cors: {
+    credentials: true,
+    origin: true,
+  },
 });
 server
   .listen({
