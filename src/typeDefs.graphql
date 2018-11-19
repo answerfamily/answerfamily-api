@@ -13,6 +13,13 @@ type Query {
     skip: Int
   ): [ParagraphReply]
 
+  replies(
+    filter: ReplySearchFilter
+    sort: [ReplySearchSort]
+    first: Int
+    skip: Int
+  ): [Reply]
+
   # Get single aritcle
   article(id: String!): Article
 
@@ -168,6 +175,11 @@ input ParagraphSearchFilter {
   contain: String,
 }
 
+input ReplySearchFilter {
+  # matches only paragraphs that contains these terms
+  contain: String,
+}
+
 """
 Sort order for search results
 """
@@ -185,6 +197,18 @@ enum ParagraphSearchSortBy {
 
 input ParagraphSearchSort {
   by: ParagraphSearchSortBy!
+  order: SortOrder
+}
+
+enum ReplySearchSortBy {
+  createdAt
+
+  # Search result relevance
+  _score
+}
+
+input ReplySearchSort {
+  by: ReplySearchSortBy!
   order: SortOrder
 }
 

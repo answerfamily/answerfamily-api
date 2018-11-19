@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`replies does filtering 1`] = `
+Object {
+  "replies": Array [
+    Object {
+      "id": "r2",
+      "text": "國中小的「同志教育」其實一直都在《性別平等教育法實行細則》裡頭，只是在保守團體的打壓之下，在國小的課本中沒有出現過。",
+    },
+  ],
+}
+`;
+
+exports[`replies does limiting 1`] = `
+Object {
+  "replies": Array [
+    Object {
+      "id": "r1",
+      "text": "「外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單」這句話其實並不算錯，但實務上並不會有「拖垮健保」的狀況，也跟同性婚姻關係不大，所以不用太擔心唷。",
+    },
+  ],
+}
+`;
+
+exports[`replies does skipping 1`] = `
+Object {
+  "replies": Array [
+    Object {
+      "id": "r2",
+      "text": "國中小的「同志教育」其實一直都在《性別平等教育法實行細則》裡頭，只是在保守團體的打壓之下，在國小的課本中沒有出現過。",
+    },
+  ],
+}
+`;
+
+exports[`replies does sorting 1`] = `
+Object {
+  "replies": Array [
+    Object {
+      "id": "r1",
+      "text": "「外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單」這句話其實並不算錯，但實務上並不會有「拖垮健保」的狀況，也跟同性婚姻關係不大，所以不用太擔心唷。",
+    },
+    Object {
+      "id": "r2",
+      "text": "國中小的「同志教育」其實一直都在《性別平等教育法實行細則》裡頭，只是在保守團體的打壓之下，在國小的課本中沒有出現過。",
+    },
+  ],
+}
+`;
+
+exports[`replies lists unfiltered replies 1`] = `
+Object {
+  "replies": Array [
+    Object {
+      "id": "r1",
+      "text": "「外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單」這句話其實並不算錯，但實務上並不會有「拖垮健保」的狀況，也跟同性婚姻關係不大，所以不用太擔心唷。",
+    },
+    Object {
+      "id": "r2",
+      "text": "國中小的「同志教育」其實一直都在《性別平等教育法實行細則》裡頭，只是在保守團體的打壓之下，在國小的課本中沒有出現過。",
+    },
+  ],
+}
+`;

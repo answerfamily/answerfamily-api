@@ -34,7 +34,7 @@ exports.ES_FIXTURES = {
       '國中小的「同志教育」其實一直都在《性別平等教育法實行細則》裡頭，只是在保守團體的打壓之下，在國小的課本中沒有出現過。',
     reference:
       '《同志教育怎麼教？》（含字幕）https://www.youtube.com/watch?v=mp2CCtEPAPA',
-    createdAt: '2018-10-29T01:38:47.416Z',
+    createdAt: '2018-10-29T01:38:47.417Z',
     userId: 'author1',
   },
 };

@@ -55,6 +55,36 @@ const Query = {
     });
   },
 
+  replies(_, args, { loaders }) {
+    const body = {
+      query: { match_all: {} },
+      size: args.first || 25,
+      from: args.skip || 0,
+      sort: (args.sort || []).map(({ by, order }) => ({
+        [by]: { order: (order || 'DESC').toLowerCase() },
+      })),
+    };
+
+    if (args.filter) {
+      const must = [];
+
+      if (args.filter.contain) {
+        must.push({
+          simple_query_string: {
+            query: args.filter.contain,
+            fields: ['text'],
+          },
+        });
+      }
+
+      body.query = { bool: { must } };
+    }
+    return loaders.searchResultLoader.load({
+      index: 'replies',
+      body,
+    });
+  },
+
   async paragraphReplies(_, { first = 10, skip = 0 }) {
     const { db } = await mongoClient;
 
