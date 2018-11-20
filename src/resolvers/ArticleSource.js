@@ -9,4 +9,10 @@ module.exports = {
   user({ userId }, _, { loaders }) {
     return loaders.auth0UserLoader.load(userId);
   },
+
+  async canDelete({ userId }, _, { userPromise }) {
+    const user = await userPromise;
+
+    return user && user.iss === userId;
+  },
 };

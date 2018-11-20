@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deleteSource blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`deleteSource cannot delete source created by others 1`] = `
+Array [
+  [GraphQLError: Only author can perform such action],
+]
+`;
+
+exports[`deleteSource deletes source 1`] = `
+Object {
+  "sources": Array [],
+}
+`;

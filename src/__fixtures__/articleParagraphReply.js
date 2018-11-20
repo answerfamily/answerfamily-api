@@ -60,6 +60,7 @@ exports.MONGO_FIXTURES = {
 
   articleSources: [
     {
+      _id: ObjectId('5bd677ef092a3ee2441b1a1d'),
       articleId: 'article1',
       createdAt: new Date('2018-10-29T02:59:39.043Z'),
       url: 'http://google.com',

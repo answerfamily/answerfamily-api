@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addSourceToArticle blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`addSourceToArticle creates sources 1`] = `
+Array [
+  Object {
+    "note": null,
+    "url": "http://google.com",
+  },
+  Object {
+    "note": "description",
+    "url": "http://unittest.com",
+  },
+]
+`;

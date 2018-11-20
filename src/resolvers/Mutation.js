@@ -5,6 +5,7 @@ const {
   ApolloError,
 } = require('apollo-server');
 
+const { ObjectId } = require('mongodb');
 const esClient = require('../lib/esClient');
 const mongoClient = require('../lib/mongoClient');
 const generateId = require('../lib/hash');
@@ -167,6 +168,18 @@ const Mutation = {
     });
   },
 
+  async addSourceToArticle(_, { articleId, source }, { userPromise, loaders }) {
+    const user = await userPromise;
+    assertLoggedIn(user);
+
+    await createSources(articleId, [source], user.iss);
+
+    return loaders.docLoader.load({
+      index: 'articles',
+      id: articleId,
+    });
+  },
+
   async deleteParagraph(_, { paragraphId }, { userPromise, loaders }) {
     const user = await userPromise;
     assertLoggedIn(user);
@@ -193,6 +206,27 @@ const Mutation = {
     return loaders.docLoader.load({
       index: 'articles',
       id: targetParagraph.articleId,
+    });
+  },
+
+  async deleteSource(_, { sourceId }, { userPromise, loaders }) {
+    const user = await userPromise;
+    assertLoggedIn(user);
+
+    const { db } = await mongoClient;
+    const source = await db
+      .collection('articleSources')
+      .findOne({ _id: ObjectId(sourceId) });
+    assertOwnership(source, user);
+
+    // Delete source
+    await db
+      .collection('articleSources')
+      .deleteOne({ _id: ObjectId(sourceId) });
+
+    return loaders.docLoader.load({
+      index: 'articles',
+      id: source.articleId,
     });
   },
 

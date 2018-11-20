@@ -36,9 +36,12 @@ type Query {
 type Mutation {
   createArticle(article: ArticleInput): Article
   addParagraphToArticle(articleId: String!, paragraph: ParagraphInput!): Article
+  addSourceToArticle(articleId: String!, source: ArticleSourceInput!): Article
 
   # Deletes paragraph and all its paragraphReplies. Reply would remain.
   deleteParagraph(paragraphId: String!): Article
+
+  deleteSource(sourceId: ObjectId!): Article
 
   # Connects existing reply with a paragraph
   connectReplyWithParagraph(replyId: String!, paragraphId: String!): Paragraph
@@ -128,6 +131,8 @@ input ReplyInput {
 Where the article is from
 """
 type ArticleSource {
+  id: ObjectId
+
   article: Article
 
   # author's note of this source for other editors, probably indicating how the article can be retrieved
@@ -136,6 +141,8 @@ type ArticleSource {
 
   # The person that reports such occurrence
   user: User
+
+  canDelete: Boolean
 
   createdAt: String
 }
