@@ -1,8 +1,16 @@
 type Query {
+  # List all articles that meet the filter
+  articles(
+    filter: TextSearchFilter
+    sort: [TextSearchSort]
+    first: Int
+    skip: Int
+  ): [Article]
+
   # List all paragraphs that meet the filter
   paragraphs(
-    filter: ParagraphSearchFilter
-    sort: [ParagraphSearchSort]
+    filter: TextSearchFilter
+    sort: [TextSearchSort]
     first: Int
     skip: Int
   ): [Paragraph]
@@ -14,8 +22,8 @@ type Query {
   ): [ParagraphReply]
 
   replies(
-    filter: ReplySearchFilter
-    sort: [ReplySearchSort]
+    filter: TextSearchFilter
+    sort: [TextSearchSort]
     first: Int
     skip: Int
   ): [Reply]
@@ -174,16 +182,11 @@ type User {
   name: String
 }
 
-input ParagraphSearchFilter {
-  # matches only paragraphs that is inside the given text
+input TextSearchFilter {
+  # matches only text that is inside the given text
   inText: String,
 
-  # matches only paragraphs that contains these terms
-  contain: String,
-}
-
-input ReplySearchFilter {
-  # matches only paragraphs that contains these terms
+  # matches only text that contains these terms
   contain: String,
 }
 
@@ -195,27 +198,15 @@ enum SortOrder {
   ASC
 }
 
-enum ParagraphSearchSortBy {
+enum TextSearchSortBy {
   createdAt
 
   # Search result relevance
   _score
 }
 
-input ParagraphSearchSort {
-  by: ParagraphSearchSortBy!
-  order: SortOrder
-}
-
-enum ReplySearchSortBy {
-  createdAt
-
-  # Search result relevance
-  _score
-}
-
-input ReplySearchSort {
-  by: ReplySearchSortBy!
+input TextSearchSort {
+  by: TextSearchSortBy!
   order: SortOrder
 }
 
