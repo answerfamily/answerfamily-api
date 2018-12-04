@@ -73,6 +73,10 @@ function resolveSearchForIndex(index, args, searchResultLoader) {
           min_term_freq: 1,
           min_doc_freq: 1,
           max_query_terms: 25,
+
+          // When inText is used, query is large but documents are small.
+          // for minimum_should_match we should cater to document length.
+          minimum_should_match: 2,
         },
       });
     }
