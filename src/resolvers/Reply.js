@@ -1,6 +1,6 @@
 module.exports = {
   async paragraphReplies({ id }, _, { loaders }) {
-    const result = await loaders.paragraphRepliesByReplyIdLoader.load(id)
+    const result = await loaders.paragraphRepliesByReplyIdLoader.load(id);
     return result || [];
   },
 
