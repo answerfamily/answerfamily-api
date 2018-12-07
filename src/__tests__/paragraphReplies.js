@@ -25,6 +25,7 @@ describe('paragraphReplies', () => {
     const { data, errors } = await gql`
       {
         paragraphReplies {
+          id
           paragraph {
             id
           }

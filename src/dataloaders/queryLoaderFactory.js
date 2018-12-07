@@ -28,8 +28,7 @@ module.exports = (loaders, collectionName, key = '_id') =>
 
       return values.map(id => {
         const result = results.find(({ _id }) => _id === id);
-        if (result)
-          return result.docs.map(({ _id, ...doc }) => ({ ...doc, id: _id }));
+        if (result) return result.docs;
         return null;
       });
     },

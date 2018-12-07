@@ -1,4 +1,8 @@
 module.exports = {
+  id({ _id }) {
+    return _id;
+  },
+
   paragraph({ paragraphId }, _, { loaders }) {
     return loaders.docLoader.load({
       index: 'paragraphs',

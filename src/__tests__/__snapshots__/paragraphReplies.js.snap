@@ -34,6 +34,7 @@ exports[`paragraphReplies lists unfiltered paragraphReplies 1`] = `
 Object {
   "paragraphReplies": Array [
     Object {
+      "id": "5bd677ef092a3ee2541b1a1d",
       "paragraph": Object {
         "id": "p2",
       },
@@ -42,6 +43,7 @@ Object {
       },
     },
     Object {
+      "id": "5bd677bb092a3ee2541b1a0d",
       "paragraph": Object {
         "id": "p1",
       },

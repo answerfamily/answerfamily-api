@@ -41,6 +41,7 @@ describe('Basic object type graph resolving', () => {
           }
           createdAt
           sources {
+            id
             article {
               id
             }
