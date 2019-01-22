@@ -1,3 +1,5 @@
+const urlRegex = require('url-regex');
+
 module.exports = {
   paragraphs({ id }, _, { loaders }) {
     // searchResultLoader always return arrays
@@ -19,5 +21,11 @@ module.exports = {
 
   user({ userId }, _, { loaders }) {
     return loaders.auth0UserLoader.load(userId);
+  },
+
+  hyperlinks({ text }, _, { loaders }) {
+    const urls = text.match(urlRegex()) || [];
+
+    return loaders.latestUrlFetchRecordByUrlLoader.loadMany(urls);
   },
 };

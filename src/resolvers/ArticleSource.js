@@ -19,4 +19,8 @@ module.exports = {
 
     return user && user.iss === userId;
   },
+
+  hyperlink({ url }, _, { loaders }) {
+    return loaders.latestUrlFetchRecordByUrlLoader.load(url);
+  },
 };

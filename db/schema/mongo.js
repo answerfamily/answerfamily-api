@@ -53,6 +53,27 @@ const SCHEMA = {
       },
     },
   },
+
+  urlFetchRecords: {
+    bsonType: 'object',
+    description: 'URL fetch records',
+    properties: {
+      url: {
+        bsonType: 'string',
+        description: 'Exact URL that is requested for a fetch',
+      },
+      canonical: { bsonType: 'string', description: 'Resolved URL' },
+      title: { bsonType: 'string', description: 'Page title' },
+      summary: {
+        bsonType: 'string',
+        description: 'Page summary text provided by cofacts-url-resolver',
+      },
+      topImageUrl: { bsonType: 'string' },
+      fetchedAt: { bsonType: 'date' },
+      status: { bsonType: 'int', description: 'cofacts-url-resolver status' },
+      error: { bsonType: 'string', description: 'cofacts-url-resolver error' },
+    },
+  },
 };
 
 const INDICES = {
@@ -71,6 +92,16 @@ const INDICES = {
     {
       name: 'articleId',
       key: { articleId: 1 },
+    },
+  ],
+  urlFetchRecords: [
+    {
+      name: 'url',
+      key: { url: 1 },
+    },
+    {
+      name: 'canonical',
+      key: { canonical: 1 },
     },
   ],
 };

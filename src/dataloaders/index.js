@@ -2,6 +2,7 @@ const docLoaderFactory = require('./docLoaderFactory');
 const searchResultLoaderFactory = require('./searchResultLoaderFactory');
 const queryLoaderFactory = require('./queryLoaderFactory');
 const auth0UserLoaderFactory = require('./auth0UserLoaderFactory');
+const latestUrlFetchRecordByUrlLoaderFactory = require('./latestUrlFetchRecordByUrlLoaderFactory');
 
 module.exports = class DataLoaders {
   // List of data loaders
@@ -41,6 +42,13 @@ module.exports = class DataLoaders {
       queryLoaderFactory,
       'articleSources',
       'articleId'
+    );
+  }
+
+  get latestUrlFetchRecordByUrlLoader() {
+    return this._checkOrSetLoader(
+      'latestUrlFetchRecordByUrlLoader',
+      latestUrlFetchRecordByUrlLoaderFactory
     );
   }
 

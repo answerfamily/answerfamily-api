@@ -46,6 +46,12 @@ describe('Basic object type graph resolving', () => {
               id
             }
             url
+            hyperlink {
+              title
+            }
+          }
+          hyperlinks {
+            title
           }
         }
       }
@@ -69,6 +75,9 @@ describe('Basic object type graph resolving', () => {
               canDelete
             }
             canDelete
+          }
+          hyperlinks {
+            title
           }
         }
       }
