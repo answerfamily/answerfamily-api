@@ -93,6 +93,10 @@ const INDICES = {
       name: 'articleId',
       key: { articleId: 1 },
     },
+    {
+      name: 'url',
+      key: { url: 1 },
+    },
   ],
   urlFetchRecords: [
     {
