@@ -18,8 +18,12 @@ exports[`replies does limiting 1`] = `
 Object {
   "replies": Array [
     Object {
-      "id": "289hk8fuss3zb",
-      "text": "明年五月台灣將成為亞洲第一個同性可合法結婚的國家",
+      "id": "r1",
+      "text": "
+      「外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單」這句話其實並不算錯，但實務上並不會有「拖垮健保」的狀況，也跟同性婚姻關係不大，所以不用太擔心唷。
+      衛福部 - 有關網路流傳外國人染愛滋病來台2年後，所有外國人的愛滋病治療費用是由健保署負擔，疾管署特此說明
+      https://www.cdc.gov.tw/info.aspx?treeid=45da8e73a81d495d&nowtreeid=1bd193ed6dabaee6&tid=14D38681253864AB&fbclid=IwAR1mtdGIYYbHdiB99pZg_YQSwGXUD-DMj47fmgFnrphQ778k73SQzZkEUDk
+    ",
     },
   ],
 }
@@ -28,14 +32,6 @@ Object {
 exports[`replies does skipping 1`] = `
 Object {
   "replies": Array [
-    Object {
-      "id": "r1",
-      "text": "
-      「外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單」這句話其實並不算錯，但實務上並不會有「拖垮健保」的狀況，也跟同性婚姻關係不大，所以不用太擔心唷。
-      衛福部 - 有關網路流傳外國人染愛滋病來台2年後，所有外國人的愛滋病治療費用是由健保署負擔，疾管署特此說明
-      https://www.cdc.gov.tw/info.aspx?treeid=45da8e73a81d495d&nowtreeid=1bd193ed6dabaee6&tid=14D38681253864AB&fbclid=IwAR1mtdGIYYbHdiB99pZg_YQSwGXUD-DMj47fmgFnrphQ778k73SQzZkEUDk
-    ",
-    },
     Object {
       "id": "r2",
       "text": "
@@ -65,10 +61,6 @@ Object {
       《同志教育怎麼教？》（含字幕）https://www.youtube.com/watch?v=mp2CCtEPAPA
     ",
     },
-    Object {
-      "id": "289hk8fuss3zb",
-      "text": "明年五月台灣將成為亞洲第一個同性可合法結婚的國家",
-    },
   ],
 }
 `;
@@ -76,10 +68,6 @@ Object {
 exports[`replies lists unfiltered replies 1`] = `
 Object {
   "replies": Array [
-    Object {
-      "id": "289hk8fuss3zb",
-      "text": "明年五月台灣將成為亞洲第一個同性可合法結婚的國家",
-    },
     Object {
       "id": "r1",
       "text": "
