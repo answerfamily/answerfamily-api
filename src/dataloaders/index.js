@@ -45,6 +45,15 @@ module.exports = class DataLoaders {
     );
   }
 
+  get articleSourcesByUrlLoader() {
+    return this._checkOrSetLoader(
+      'articleSourcesByUrlLoader',
+      queryLoaderFactory,
+      'articleSources',
+      'url'
+    );
+  }
+
   get latestUrlFetchRecordByUrlLoader() {
     return this._checkOrSetLoader(
       'latestUrlFetchRecordByUrlLoader',

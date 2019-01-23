@@ -54,6 +54,11 @@ Object {
           "id": "article1",
         },
         "hyperlink": Object {
+          "articleSources": Array [
+            Object {
+              "id": "5bd677ef092a3ee2441b1a1d",
+            },
+          ],
           "title": "Google",
         },
         "id": "5bd677ef092a3ee2441b1a1d",

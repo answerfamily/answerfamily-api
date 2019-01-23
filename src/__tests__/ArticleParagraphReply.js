@@ -48,6 +48,9 @@ describe('Basic object type graph resolving', () => {
             url
             hyperlink {
               title
+              articleSources {
+                id
+              }
             }
           }
           hyperlinks {
