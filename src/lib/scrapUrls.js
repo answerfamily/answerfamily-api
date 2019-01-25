@@ -1,9 +1,7 @@
 // import rollbar from 'rollbarInstance';
 const urlRegex = require('url-regex');
 const DataLoader = require('dataloader');
-const { GraphQLClient } = require('graphql-request');
-
-const urlResolverClient = new GraphQLClient(process.env.URL_RESOLVER_URL);
+const { request } = require('graphql-request');
 
 /**
  * Extracts urls from a string.
@@ -29,24 +27,23 @@ async function scrapUrls(
   if (urls.length === 0) return [];
 
   const scrapLoader = new DataLoader(urls =>
-    urlResolverClient
-      .request(
-        `
-      query($urls: [String]!) {
-        resolvedUrls(urls: $urls) {
-          url
-          canonical
-          title
-          summary
-          topImageUrl
-          status
-          error
+    request(
+      process.env.URL_RESOLVER_URL,
+      `
+        query($urls: [String]!) {
+          resolvedUrls(urls: $urls) {
+            url
+            canonical
+            title
+            summary
+            topImageUrl
+            status
+            error
+          }
         }
-      }
-    `,
-        { urls }
-      )
-      .then(({ data }) => data.resolvedUrls)
+      `,
+      { urls }
+    ).then(({ data }) => data.resolvedUrls)
   );
 
   const fetchRecords = await Promise.all(

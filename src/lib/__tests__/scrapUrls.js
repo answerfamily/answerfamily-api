@@ -1,13 +1,16 @@
-jest.mock('../gql');
+jest.mock('graphql-request');
+const { request } = require('graphql-request');
 
 const MockDate = require('mockdate');
 
-const { loadFixtures, unloadFixtures } = require('util/fixtures');
+const {
+  loadMongoFixtures,
+  unloadMongoFixtures,
+} = require('../../../test/fixtures');
 const fixtures = require('../__fixtures__/scrapUrls');
 const scrapUrls = require('../scrapUrls');
-const DataLoaders = require('graphql/dataLoaders');
-const client = require('util/client');
-const gql = require('../gql');
+const DataLoaders = require('../../dataloaders');
+const client = require('../mongoClient');
 
 describe('scrapping & storage', () => {
   let server;
@@ -29,30 +32,32 @@ describe('scrapping & storage', () => {
     async () => {
       MockDate.set(1485593157011);
 
-      gql.__addMockResponse({
-        data: {
-          resolvedUrls: [
-            {
-              url: 'http://example.com/index.html',
-              canonical: 'http://example.com/index.html',
-              title: 'Some title',
-              summary: 'Some text as summary',
-              topImageUrl: '',
-              html: '<html><head></head><body>Hello world</body></html>',
-              status: 200,
-            },
-            {
-              url: 'http://example.com/not-found',
-              canonical: 'http://example.com/not-found',
-              title: '',
-              summary: 'Not Found',
-              topImageUrl: '',
-              html: '<html><head></head><body>Not Found</body></html>',
-              status: 404,
-            },
-          ],
-        },
-      });
+      request.mockReturnValue(
+        Promise.resolve({
+          data: {
+            resolvedUrls: [
+              {
+                url: 'http://example.com/index.html',
+                canonical: 'http://example.com/index.html',
+                title: 'Some title',
+                summary: 'Some text as summary',
+                topImageUrl: '',
+                html: '<html><head></head><body>Hello world</body></html>',
+                status: 200,
+              },
+              {
+                url: 'http://example.com/not-found',
+                canonical: 'http://example.com/not-found',
+                title: '',
+                summary: 'Not Found',
+                topImageUrl: '',
+                html: '<html><head></head><body>Not Found</body></html>',
+                status: 404,
+              },
+            ],
+          },
+        })
+      );
 
       const [foundResult, notFoundResult] = await scrapUrls(
         `
