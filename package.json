@@ -30,6 +30,7 @@
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "jest": "^23.6.0",
+    "mockdate": "^2.0.2",
     "mongodb": "^3.1.8",
     "prettier": "^1.14.3"
   },
