@@ -69,6 +69,9 @@ type Article {
   sources: [ArticleSource]
   createdAt: String
   user: User
+
+  # Extracts hyperlinks inside text and return the matching UrlFetchRecords
+  hyperlinks: [UrlFetchRecord]
 }
 
 input ArticleInput {
@@ -128,6 +131,9 @@ type Reply {
   createdAt: String
 
   paragraphReplies: [ParagraphReply]
+
+  # Extracts hyperlinks inside text and return the matching UrlFetchRecords
+  hyperlinks: [UrlFetchRecord]
 }
 
 input ReplyInput {
@@ -153,6 +159,9 @@ type ArticleSource {
   canDelete: Boolean
 
   createdAt: String
+
+  # UrlFetchRecord for the given url
+  hyperlink: UrlFetchRecord
 }
 
 input ArticleSourceInput {
@@ -173,13 +182,24 @@ type CurrentUser {
 }
 
 """
-Publuc user profile from auth0
+Public user profile from auth0
 """
 type User {
   # user in DB
   id: String
   picture: String
   name: String
+}
+
+type UrlFetchRecord {
+  url: String
+  canonical: String
+  title: String
+  summary: String
+  topImageUrl: String
+
+  # ArticleSource that has matching URL or canonical URLs
+  articleSources: [ArticleSource]
 }
 
 input TextSearchFilter {
