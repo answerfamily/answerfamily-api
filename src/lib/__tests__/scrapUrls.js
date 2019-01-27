@@ -1,38 +1,29 @@
 jest.mock('graphql-request');
 const { request } = require('graphql-request');
-
-const MockDate = require('mockdate');
+const MockDate = require('mockdate'); // eslint-disable-line node/no-unpublished-require
 
 const {
   loadMongoFixtures,
   unloadMongoFixtures,
 } = require('../../../test/fixtures');
-const fixtures = require('../__fixtures__/scrapUrls');
+const { MONGO_FIXTURES } = require('../__fixtures__/scrapUrls');
 const scrapUrls = require('../scrapUrls');
 const DataLoaders = require('../../dataloaders');
 const client = require('../mongoClient');
 
 describe('scrapping & storage', () => {
-  let server;
-
   afterAll(async () => {
-    await client.deleteByQuery({
-      index: 'urls',
-      body: {
-        query: {
-          match_all: {},
-        },
-      },
-    });
-    server.close();
+    const { db } = await client;
+    await db.collection('urlFetchRecords').deleteMany();
   });
 
   it(
     'scraps from Internet and handles error',
     async () => {
       MockDate.set(1485593157011);
+      const { db } = await client;
 
-      request.mockReturnValue(
+      request.mockReturnValueOnce(
         Promise.resolve({
           data: {
             resolvedUrls: [
@@ -69,37 +60,30 @@ describe('scrapping & storage', () => {
       );
       MockDate.reset();
 
-      expect(gql.__getRequests()).toMatchSnapshot('GraphQL requests');
-      gql.__reset();
+      expect(request).toMatchSnapshot('GraphQL requests');
 
       expect(foundResult).toMatchSnapshot('foundResult');
       expect(notFoundResult).toMatchSnapshot('notFoundResult');
 
-      // scrapUrls() don't wait until refresh, thus refresh on our own
-      await client.indices.refresh({ index: 'urls' });
+      const result = await db
+        .collection('urlFetchRecords')
+        .find()
+        .toArray();
 
-      const {
-        hits: { hits: urls },
-      } = await client.search({
-        index: 'urls',
-        body: {
-          query: {
-            match_all: {},
-          },
-        },
-      });
-
-      expect(urls.map(({ _source }) => _source)).toMatchSnapshot(
-        'Docs stored to urls index'
-      );
+      expect(
+        result.map(
+          // eslint-disable-next-line no-unused-vars
+          ({ _id, ...doc }) => doc
+        )
+      ).toMatchSnapshot('Docs stored to urls index');
     },
     30000
   );
 });
 
 describe('caching', () => {
-  beforeAll(() => loadFixtures(fixtures));
-  afterAll(() => unloadFixtures(fixtures));
+  beforeAll(() => loadMongoFixtures(MONGO_FIXTURES));
+  afterAll(() => unloadMongoFixtures(MONGO_FIXTURES));
 
   it('fetches latest fetch from urls', async () => {
     const loaders = new DataLoaders();
@@ -110,7 +94,7 @@ describe('caching', () => {
           http://example.com/article/1111 // canonical URL
         `,
         {
-          cacheLoader: loaders.urlLoader,
+          cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
           noFetch: true,
         }
       )
