@@ -209,6 +209,9 @@ input TextSearchFilter {
   # matches only text that is inside the given text. more_like_this query is used behind the hood.
   inText: String,
 
+  # If set to true and `inText` contains URLs, will fetch the content of URL and add to search
+  resolveUrlsInText: Boolean,
+
   # matches only text that contains these terms
   contain: String,
 }

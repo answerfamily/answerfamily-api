@@ -70,10 +70,12 @@ async function resolveSearchForIndex(index, args, loaders) {
     const must = [];
 
     if (args.filter.inText) {
-      const urlFetchRecords = await scrapUrls(args.filter.inText, {
-        cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
-        client: mongoClient,
-      });
+      const urlFetchRecords = !args.filter.resolveUrlsInText
+        ? []
+        : await scrapUrls(args.filter.inText, {
+            cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
+            client: mongoClient,
+          });
 
       must.push({
         more_like_this: {
