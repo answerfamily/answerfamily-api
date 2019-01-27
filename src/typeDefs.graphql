@@ -28,6 +28,9 @@ type Query {
     skip: Int
   ): [Reply]
 
+  # Matches UrlFetchRecord in given text
+  hyperlinks(inText: String!): [UrlFetchRecord]
+
   # Get single aritcle
   article(id: String!): Article
 
@@ -203,7 +206,7 @@ type UrlFetchRecord {
 }
 
 input TextSearchFilter {
-  # matches only text that is inside the given text
+  # matches only text that is inside the given text. more_like_this query is used behind the hood.
   inText: String,
 
   # matches only text that contains these terms
