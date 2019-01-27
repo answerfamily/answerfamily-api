@@ -1,3 +1,5 @@
+const scrapUrls = require('../lib/scrapUrls');
+
 module.exports = {
   id({ _id }) {
     return _id;
@@ -20,7 +22,14 @@ module.exports = {
     return user && user.iss === userId;
   },
 
-  hyperlink({ url }, _, { loaders }) {
-    return loaders.latestUrlFetchRecordByUrlLoader.load(url);
+  async hyperlink({ url }, _, { loaders }) {
+    const urlFetchResults = await scrapUrls(url, {
+      cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
+      noFetch: true,
+    });
+
+    if (urlFetchResults) return urlFetchResults[0];
+
+    return null;
   },
 };

@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`caching fetches latest fetch from urls 1`] = `
+Array [
+  Object {
+    "_id": "5c4dc54fe36f8525bf6f6399",
+    "canonical": "http://example.com/article/1111",
+    "fetchedAt": 2017-02-01T00:00:00.000Z,
+    "fromUrlsCache": true,
+    "status": 200,
+    "summary": "Changed summary",
+    "title": "Changed title",
+    "url": "http://example.com/article/1111-aaaaa-bbb-ccc",
+  },
+  null,
+]
+`;
+
+exports[`scrapping & storage scraps from Internet and handles error: Docs stored to urls index 1`] = `
+Array [
+  Object {
+    "canonical": "http://example.com/index.html",
+    "fetchedAt": 2017-01-28T08:45:57.011Z,
+    "html": "<html><head></head><body>Hello world</body></html>",
+    "status": 200,
+    "summary": "Some text as summary",
+    "title": "Some title",
+    "topImageUrl": "",
+    "url": "http://example.com/index.html",
+  },
+  Object {
+    "canonical": "http://example.com/not-found",
+    "fetchedAt": 2017-01-28T08:45:57.011Z,
+    "html": "<html><head></head><body>Not Found</body></html>",
+    "status": 404,
+    "summary": "Not Found",
+    "title": "",
+    "topImageUrl": "",
+    "url": "http://example.com/not-found",
+  },
+]
+`;
+
+exports[`scrapping & storage scraps from Internet and handles error: GraphQL requests 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "http://localhost:4000",
+      "
+        query($urls: [String]!) {
+          resolvedUrls(urls: $urls) {
+            url
+            canonical
+            title
+            summary
+            topImageUrl
+            status
+            error
+          }
+        }
+      ",
+      Object {
+        "urls": Array [
+          "http://example.com/index.html",
+          "http://example.com/not-found",
+        ],
+      },
+    ],
+  ],
+  "results": Array [
+    Object {
+      "isThrow": false,
+      "value": Promise {},
+    },
+  ],
+}
+`;
+
+exports[`scrapping & storage scraps from Internet and handles error: foundResult 1`] = `
+Object {
+  "canonical": "http://example.com/index.html",
+  "html": "<html><head></head><body>Hello world</body></html>",
+  "status": 200,
+  "summary": "Some text as summary",
+  "title": "Some title",
+  "topImageUrl": "",
+  "url": "http://example.com/index.html",
+}
+`;
+
+exports[`scrapping & storage scraps from Internet and handles error: notFoundResult 1`] = `
+Object {
+  "canonical": "http://example.com/not-found",
+  "html": "<html><head></head><body>Not Found</body></html>",
+  "status": 404,
+  "summary": "Not Found",
+  "title": "",
+  "topImageUrl": "",
+  "url": "http://example.com/not-found",
+}
+`;

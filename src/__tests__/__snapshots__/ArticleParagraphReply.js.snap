@@ -125,3 +125,13 @@ Object {
   },
 }
 `;
+
+exports[`Basic object type graph resolving loads hyperlinks from text 1`] = `
+Object {
+  "hyperlinks": Array [
+    Object {
+      "title": "國二健教課本惹議 竟教性滿足、自拍性愛－民視新聞",
+    },
+  ],
+}
+`;

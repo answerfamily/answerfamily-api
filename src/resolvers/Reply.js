@@ -1,4 +1,4 @@
-const urlRegex = require('url-regex');
+const scrapUrls = require('../lib/scrapUrls');
 
 module.exports = {
   async paragraphReplies({ id }, _, { loaders }) {
@@ -11,8 +11,9 @@ module.exports = {
   },
 
   hyperlinks({ text }, _, { loaders }) {
-    const urls = text.match(urlRegex()) || [];
-
-    return loaders.latestUrlFetchRecordByUrlLoader.loadMany(urls);
+    return scrapUrls(text, {
+      cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
+      noFetch: true,
+    });
   },
 };
