@@ -14,6 +14,7 @@ const client = require('../mongoClient');
 describe('scrapping & storage', () => {
   afterAll(async () => {
     const { db } = await client;
+    // Cleanup
     await db.collection('urlFetchRecords').deleteMany();
   });
 
@@ -23,30 +24,31 @@ describe('scrapping & storage', () => {
       MockDate.set(1485593157011);
       const { db } = await client;
 
+      // Clear all urlFetchRecords to avoid interference
+      await db.collection('urlFetchRecords').deleteMany();
+
       request.mockReturnValueOnce(
         Promise.resolve({
-          data: {
-            resolvedUrls: [
-              {
-                url: 'http://example.com/index.html',
-                canonical: 'http://example.com/index.html',
-                title: 'Some title',
-                summary: 'Some text as summary',
-                topImageUrl: '',
-                html: '<html><head></head><body>Hello world</body></html>',
-                status: 200,
-              },
-              {
-                url: 'http://example.com/not-found',
-                canonical: 'http://example.com/not-found',
-                title: '',
-                summary: 'Not Found',
-                topImageUrl: '',
-                html: '<html><head></head><body>Not Found</body></html>',
-                status: 404,
-              },
-            ],
-          },
+          resolvedUrls: [
+            {
+              url: 'http://example.com/index.html',
+              canonical: 'http://example.com/index.html',
+              title: 'Some title',
+              summary: 'Some text as summary',
+              topImageUrl: '',
+              html: '<html><head></head><body>Hello world</body></html>',
+              status: 200,
+            },
+            {
+              url: 'http://example.com/not-found',
+              canonical: 'http://example.com/not-found',
+              title: '',
+              summary: 'Not Found',
+              topImageUrl: '',
+              html: '<html><head></head><body>Not Found</body></html>',
+              status: 404,
+            },
+          ],
         })
       );
 

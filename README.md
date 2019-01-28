@@ -17,6 +17,18 @@ Both step would attach to the terminal window. Ctrl-C to stop any of them
 
 ## Test
 
+First, clean up the current database specified in `.env`.
+
+```
+$ curl -X localhost:9200/_all
+```
+
+Then run the following to set mongodb validator & elasticsearch mappings
+```
+$ npm run schema
+```
+
+Lastly, run:
 ```
 $ npm test
 ```

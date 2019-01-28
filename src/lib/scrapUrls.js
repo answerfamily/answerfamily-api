@@ -43,7 +43,7 @@ async function scrapUrls(
         }
       `,
       { urls }
-    ).then(({ data }) => data.resolvedUrls)
+    ).then(data => data.resolvedUrls)
   );
 
   const fetchRecords = await Promise.all(
