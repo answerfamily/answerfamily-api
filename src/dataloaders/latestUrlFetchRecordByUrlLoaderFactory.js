@@ -12,7 +12,7 @@ module.exports = () =>
       .collection('urlFetchRecords')
       .find({
         $or: [{ url: { $in: urls } }, { canonicalUrl: { $in: urls } }],
-        status: 200,
+        status: { $lt: 400 },
       })
       .toArray();
 
