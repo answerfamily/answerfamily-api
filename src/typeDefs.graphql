@@ -200,6 +200,7 @@ type UrlFetchRecord {
   title: String
   summary: String
   topImageUrl: String
+  error: String
 
   # ArticleSource that has matching URL or canonical URLs
   articleSources: [ArticleSource]
