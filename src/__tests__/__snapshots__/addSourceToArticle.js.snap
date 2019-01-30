@@ -18,3 +18,20 @@ Array [
   },
 ]
 `;
+
+exports[`addSourceToArticle creates sources: scrapUrl calls 1`] = `
+Array [
+  Array [
+    "http://unittest.com",
+    Object {
+      "cacheLoader": DataLoader {
+        "_batchLoadFn": [Function],
+        "_options": undefined,
+        "_promiseCache": Map {},
+        "_queue": Array [],
+      },
+      "client": Promise {},
+    },
+  ],
+]
+`;

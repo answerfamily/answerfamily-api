@@ -1,4 +1,5 @@
 jest.mock('../dataloaders/auth0UserLoaderFactory');
+jest.mock('../lib/scrapUrls');
 
 const { ObjectId } = require('mongodb');
 const {
@@ -12,8 +13,10 @@ const {
   ES_FIXTURES,
   MONGO_FIXTURES,
 } = require('../__fixtures__/articleParagraphReply');
+
 const esClient = require('../lib/esClient');
 const mongoClient = require('../lib/mongoClient');
+const scrapUrls = require('../lib/scrapUrls');
 
 describe('addReplyToParagraph', () => {
   beforeAll(async () => {
@@ -27,6 +30,7 @@ describe('addReplyToParagraph', () => {
   });
 
   it('creates reply and paragraphReplies', async () => {
+    scrapUrls.mockImplementation(() => Promise.resolve({}));
     const reply = {
       text: '明年五月台灣將成為亞洲第一個同性可合法結婚的國家',
       note: 'notenote',
@@ -66,6 +70,7 @@ describe('addReplyToParagraph', () => {
       // eslint-disable-next-line no-unused-vars
       data.addReplyToParagraph.paragraphReplies.map(({ id, ...data }) => data)
     ).toMatchSnapshot();
+    expect(scrapUrls.mock.calls).toMatchSnapshot('scrapUrl calls');
 
     const newParagraphReply = data.addReplyToParagraph.paragraphReplies.find(
       p => p.reply.text === reply.text

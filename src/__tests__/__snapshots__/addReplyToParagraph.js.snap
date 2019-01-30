@@ -38,3 +38,20 @@ Array [
   },
 ]
 `;
+
+exports[`addReplyToParagraph creates reply and paragraphReplies: scrapUrl calls 1`] = `
+Array [
+  Array [
+    "明年五月台灣將成為亞洲第一個同性可合法結婚的國家",
+    Object {
+      "cacheLoader": DataLoader {
+        "_batchLoadFn": [Function],
+        "_options": undefined,
+        "_promiseCache": Map {},
+        "_queue": Array [],
+      },
+      "client": Promise {},
+    },
+  ],
+]
+`;

@@ -31,3 +31,32 @@ Object {
   },
 }
 `;
+
+exports[`createArticle connects reply and paragraph: scrapUrl calls 1`] = `
+Array [
+  Array [
+    "新文章ㄛ",
+    Object {
+      "cacheLoader": DataLoader {
+        "_batchLoadFn": [Function],
+        "_options": undefined,
+        "_promiseCache": Map {},
+        "_queue": Array [],
+      },
+      "client": Promise {},
+    },
+  ],
+  Array [
+    "http://google.com",
+    Object {
+      "cacheLoader": DataLoader {
+        "_batchLoadFn": [Function],
+        "_options": undefined,
+        "_promiseCache": Map {},
+        "_queue": Array [],
+      },
+      "client": Promise {},
+    },
+  ],
+]
+`;

@@ -1,4 +1,5 @@
 jest.mock('../dataloaders/auth0UserLoaderFactory');
+jest.mock('../lib/scrapUrls');
 
 const {
   loadESFixtures,
@@ -12,6 +13,7 @@ const {
   MONGO_FIXTURES,
 } = require('../__fixtures__/articleParagraphReply');
 const mongoClient = require('../lib/mongoClient');
+const scrapUrls = require('../lib/scrapUrls');
 
 describe('addSourceToArticle', () => {
   beforeAll(async () => {
@@ -29,6 +31,8 @@ describe('addSourceToArticle', () => {
     note: 'description',
   };
   it('creates sources', async () => {
+    scrapUrls.mockImplementation(() => Promise.resolve({}));
+
     const { errors, data } = await gql`
       mutation($articleId: String!, $source: ArticleSourceInput!) {
         addSourceToArticle(articleId: $articleId, source: $source) {
@@ -47,6 +51,7 @@ describe('addSourceToArticle', () => {
 
     expect(errors).toBeUndefined();
     expect(data.addSourceToArticle.sources).toMatchSnapshot();
+    expect(scrapUrls.mock.calls).toMatchSnapshot('scrapUrl calls');
 
     // cleanup
     const { db } = await mongoClient;

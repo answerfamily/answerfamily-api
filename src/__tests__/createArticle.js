@@ -1,11 +1,15 @@
 jest.mock('../dataloaders/auth0UserLoaderFactory');
+jest.mock('../lib/scrapUrls');
 
 const gql = require('../../test/gql');
 const esClient = require('../lib/esClient');
 const mongoClient = require('../lib/mongoClient');
+const scrapUrls = require('../lib/scrapUrls');
 
 describe('createArticle', () => {
   it('connects reply and paragraph', async () => {
+    scrapUrls.mockImplementation(() => Promise.resolve({}));
+
     const article = {
       text: '新文章ㄛ',
       paragraphs: [{ text: '新聞' }],
@@ -49,6 +53,7 @@ describe('createArticle', () => {
       createArticle: { id, ...newArticleData },
     } = data;
     expect(newArticleData).toMatchSnapshot();
+    expect(scrapUrls.mock.calls).toMatchSnapshot('scrapUrl calls');
 
     // cleanup
     await esClient.deleteByQuery({

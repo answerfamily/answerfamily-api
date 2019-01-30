@@ -7,6 +7,7 @@ const {
 
 const { ObjectId } = require('mongodb');
 const esClient = require('../lib/esClient');
+const scrapUrls = require('../lib/scrapUrls');
 const mongoClient = require('../lib/mongoClient');
 const generateId = require('../lib/hash');
 
@@ -94,13 +95,26 @@ async function createParagraphs(articleId, paragraphs, userId) {
  * @param {string} articleId
  * @param {object[]} sources - instances of ArticleSourceInput
  * @param {string} userId
+ * @param {Object} loaders
  */
-async function createSources(articleId, sources, userId) {
+async function createSources(articleId, sources, userId, loaders) {
   if (!articleId || sources.length === 0 || !userId) {
     throw new Error('cannot create article source');
   }
   const now = new Date();
   const { db } = await mongoClient;
+
+  // Make sure each URL have its fetchRecord
+  sources
+    .map(({ url }) => url)
+    .map(u => u)
+    .forEach(url => {
+      scrapUrls(url, {
+        cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
+        client: mongoClient,
+      });
+    });
+
   return db.collection('articleSources').insertMany(
     sources.map(({ note, url }) => ({
       articleId,
@@ -113,12 +127,18 @@ async function createSources(articleId, sources, userId) {
 }
 
 const Mutation = {
-  async createArticle(_, { article }, { userPromise }) {
+  async createArticle(_, { article }, { userPromise, loaders }) {
     const user = await userPromise;
     assertLoggedIn(user);
 
     const text = article.text.trim();
     const articleId = generateId(text);
+
+    // Make sure urlFetchRecords exist
+    scrapUrls(text, {
+      cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
+      client: mongoClient,
+    });
 
     // Create article
     const {
@@ -146,7 +166,7 @@ const Mutation = {
     }
 
     if (article.sources && article.sources.length > 0) {
-      await createSources(articleId, article.sources, user.iss);
+      await createSources(articleId, article.sources, user.iss, loaders);
     }
 
     return { ..._source, id: articleId };
@@ -172,7 +192,7 @@ const Mutation = {
     const user = await userPromise;
     assertLoggedIn(user);
 
-    await createSources(articleId, [source], user.iss);
+    await createSources(articleId, [source], user.iss, loaders);
 
     return loaders.docLoader.load({
       index: 'articles',
@@ -278,6 +298,12 @@ const Mutation = {
     const text = reply.text.trim();
     const note = reply.note.trim();
     const replyId = generateId(`${text}|${note}`);
+
+    // Make sure urlFetchRecords exist
+    scrapUrls(text, {
+      cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
+      client: mongoClient,
+    });
 
     // Create reply
     await esClient.update({
