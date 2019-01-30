@@ -105,15 +105,14 @@ async function createSources(articleId, sources, userId, loaders) {
   const { db } = await mongoClient;
 
   // Make sure each URL have its fetchRecord
-  sources
-    .map(({ url }) => url)
-    .map(u => u)
-    .forEach(url => {
+  await Promise.all(
+    sources.filter(({ url }) => !!url).map(({ url }) =>
       scrapUrls(url, {
         cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
         client: mongoClient,
-      });
-    });
+      })
+    )
+  );
 
   return db.collection('articleSources').insertMany(
     sources.map(({ note, url }) => ({
@@ -135,7 +134,7 @@ const Mutation = {
     const articleId = generateId(text);
 
     // Make sure urlFetchRecords exist
-    scrapUrls(text, {
+    await scrapUrls(text, {
       cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
       client: mongoClient,
     });
@@ -300,7 +299,7 @@ const Mutation = {
     const replyId = generateId(`${text}|${note}`);
 
     // Make sure urlFetchRecords exist
-    scrapUrls(text, {
+    await scrapUrls(text, {
       cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
       client: mongoClient,
     });
