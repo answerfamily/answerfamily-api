@@ -72,6 +72,10 @@ const SCHEMA = {
       fetchedAt: { bsonType: 'date' },
       status: { bsonType: 'int', description: 'cofacts-url-resolver status' },
       error: { bsonType: 'string', description: 'cofacts-url-resolver error' },
+      persist: {
+        bsonType: 'bool',
+        description: 'If the URL connects to article / reply / source',
+      },
     },
   },
 };

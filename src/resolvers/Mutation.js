@@ -110,6 +110,7 @@ async function createSources(articleId, sources, userId, loaders) {
       scrapUrls(url, {
         cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
         client: mongoClient,
+        persist: true,
       })
     )
   );
@@ -137,6 +138,7 @@ const Mutation = {
     await scrapUrls(text, {
       cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
       client: mongoClient,
+      persist: true,
     });
 
     // Create article
@@ -302,6 +304,7 @@ const Mutation = {
     await scrapUrls(text, {
       cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
       client: mongoClient,
+      persist: true,
     });
 
     // Create reply

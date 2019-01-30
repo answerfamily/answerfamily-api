@@ -17,11 +17,13 @@ const { request } = require('graphql-request');
  *                                  If not given, scrapUrl don't write `urls` cache.
  * @param {number} options.scrapLimit - Limit the number of the new URLs scrapped from the text.
  *                                      Cached entries are not counted in limit.
+ * @param {boolean} options.persist - If persist is true, the urlFetchRecord won't be deleted by
+ *                                    cron jobs. Won't have any effect if client is not given.
  * @return {Promise<UrlFetchRecord[]>} - If cannot scrap, resolves to null
  */
 async function scrapUrls(
   text,
-  { cacheLoader, client, noFetch = false, scrapLimit = 5 } = {}
+  { cacheLoader, client, noFetch = false, scrapLimit = 5, persist = false } = {}
 ) {
   const urls = text.match(urlRegex()) || [];
   if (urls.length === 0) return [];
@@ -56,7 +58,6 @@ async function scrapUrls(
           return {
             ...cachedFetchRecord,
             url, // Overwrite the URL from cache with the actual url in text, because cacheLoader may match canonical URLs
-            fromUrlsCache: true,
           };
       }
 
@@ -90,14 +91,31 @@ async function scrapUrls(
   const { db } = await client;
 
   // Filter out null, write to "urlFetchRecords" collection
-  const fetchRecordsToWrite = fetchRecords
-    .filter(r => r && !r.fromUrlsCache)
-    .map(r => ({
-      ...r,
-      fetchedAt,
-    }));
+  const fetchRecordsToWrite = fetchRecords.filter(r => r && !r._id).map(r => ({
+    ...r,
+    fetchedAt,
+  }));
+
+  let insertedIds = [];
   if (fetchRecordsToWrite.length > 0) {
-    db.collection('urlFetchRecords').insertMany(fetchRecordsToWrite);
+    const result = await db
+      .collection('urlFetchRecords')
+      .insertMany(fetchRecordsToWrite);
+
+    // http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~insertWriteOpResult
+    insertedIds = Object.values(result.insertedIds);
+  }
+
+  // Update persist flag
+  const fetchRecordIds = [
+    ...fetchRecords.filter(r => r && r._id).map(r => r._id),
+    ...insertedIds,
+  ];
+  if (persist && fetchRecordIds.length > 0) {
+    db.collection('urlFetchRecords').updateMany(
+      { _id: { $in: fetchRecordIds } },
+      { $set: { persist } }
+    );
   }
 
   return fetchRecords;

@@ -51,6 +51,7 @@ Array [
         "_queue": Array [],
       },
       "client": Promise {},
+      "persist": true,
     },
   ],
 ]

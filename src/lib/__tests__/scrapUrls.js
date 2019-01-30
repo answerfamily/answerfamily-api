@@ -58,7 +58,7 @@ describe('scrapping & storage', () => {
           This should be not found: http://example.com/not-found
           This should not match: http://malformedUrl:100000
         `,
-        { client }
+        { client, persist: true }
       );
       MockDate.reset();
 

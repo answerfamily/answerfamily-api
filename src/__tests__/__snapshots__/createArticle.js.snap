@@ -44,6 +44,7 @@ Array [
         "_queue": Array [],
       },
       "client": Promise {},
+      "persist": true,
     },
   ],
   Array [
@@ -56,6 +57,7 @@ Array [
         "_queue": Array [],
       },
       "client": Promise {},
+      "persist": true,
     },
   ],
 ]
