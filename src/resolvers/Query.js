@@ -104,8 +104,28 @@ async function resolveSearchForIndex(index, args, loaders) {
       });
     }
 
+    if (args.filter.includeHighlight) {
+      body.highlight = {
+        order: 'score',
+        fields: {
+          text: {
+            number_of_fragments: 1,
+            type: 'plain',
+          },
+        },
+        highlight_query: {
+          match: {
+            text: `${args.filter.inText || ''} ${args.filter.contain || ''}`,
+          },
+        },
+        pre_tags: ['<HIGHLIGHT>'],
+        post_tags: ['</HIGHLIGHT>'],
+      };
+    }
+
     body.query = { bool: { must } };
   }
+
   return loaders.searchResultLoader.load({ index, body });
 }
 

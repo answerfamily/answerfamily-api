@@ -88,10 +88,12 @@ describe('paragraphs', () => {
           filter: {
             inText: "哇哇哇哇哇哇哇哇 國中小實施同志教育 會變成合法 外國同性戀來台灣治療愛滋 全民買單 哇啦哇啦哇啦"
             contain: "愛滋"
+            includeHighlight: true
           }
         ) {
           id
           text
+          _highlight
         }
       }
     `();

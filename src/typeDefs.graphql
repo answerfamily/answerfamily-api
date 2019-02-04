@@ -75,6 +75,9 @@ type Article {
 
   # Extracts hyperlinks inside text and return the matching UrlFetchRecords
   hyperlinks: [UrlFetchRecord]
+
+  # When used as search result, may contain this field that marks search hits in <HIGHLIGHT></HIGHLIGHT>
+  _highlight: String
 }
 
 input ArticleInput {
@@ -96,6 +99,9 @@ type Paragraph {
 
   # If the current user can delete this paragraph
   canDelete: Boolean
+
+  # When used as search result, may contain this field that marks search hits in <HIGHLIGHT></HIGHLIGHT>
+  _highlight: String
 }
 
 input ParagraphInput {
@@ -137,6 +143,9 @@ type Reply {
 
   # Extracts hyperlinks inside text and return the matching UrlFetchRecords
   hyperlinks: [UrlFetchRecord]
+
+  # When used as search result, may contain this field that marks search hits in <HIGHLIGHT></HIGHLIGHT>
+  _highlight: String
 }
 
 input ReplyInput {
@@ -215,6 +224,9 @@ input TextSearchFilter {
 
   # matches only text that contains these terms
   contain: String,
+
+  # If set to true, each search result would contain highlight results
+  includeHighlight: Boolean,
 }
 
 """

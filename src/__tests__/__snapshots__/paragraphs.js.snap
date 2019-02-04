@@ -4,6 +4,7 @@ exports[`paragraphs does filtering 1`] = `
 Object {
   "paragraphs": Array [
     Object {
+      "_highlight": "<HIGHLIGHT>外國同性戀藉結婚來台治療愛滋</HIGHLIGHT>病，都是健保支付，<HIGHLIGHT>全民買單</HIGHLIGHT>",
       "id": "p1",
       "text": "外國同性戀藉結婚來台治療愛滋病，都是健保支付，全民買單",
     },
