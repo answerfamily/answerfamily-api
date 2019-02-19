@@ -6,7 +6,7 @@ Array [
 ]
 `;
 
-exports[`deleteParagraph cannot disconnect when paragraphReply is not by current user 1`] = `
+exports[`deleteParagraph cannot delete paragraph when its author is not current user 1`] = `
 Array [
   [GraphQLError: Only author can perform such action],
 ]
