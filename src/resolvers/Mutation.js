@@ -230,6 +230,49 @@ const Mutation = {
     });
   },
 
+  async deleteArticle(_, { articleId }, { userPromise, loaders }) {
+    const user = await userPromise;
+    assertLoggedIn(user);
+
+    const targetArticle = await loaders.docLoader.load({
+      index: 'articles',
+      id: articleId,
+    });
+    if (!targetArticle) throw new UserInputError('article not exist');
+    assertOwnership(targetArticle, user);
+
+    // Delete article
+    await esClient.delete({
+      index: 'articles',
+      type: '_doc',
+      id: articleId,
+      refresh: true,
+    });
+
+    const paragraphByArticleIdBody = { query: { term: { articleId } } };
+
+    const paragraphs = await loaders.searchResultLoader.load({
+      index: 'paragraphs',
+      body: paragraphByArticleIdBody,
+    });
+
+    // Delete associated paragraphs
+    await esClient.deleteByQuery({
+      index: 'paragraphs',
+      type: '_doc',
+      body: paragraphByArticleIdBody,
+      refresh: true,
+    });
+
+    // Delete associated paragraphReplies;
+    const { db } = await mongoClient;
+    await db
+      .collection('paragraphReplies')
+      .deleteMany({ paragraphId: { $in: paragraphs.map(p => p.id) } });
+
+    return true;
+  },
+
   async deleteSource(_, { sourceId }, { userPromise, loaders }) {
     const user = await userPromise;
     assertLoggedIn(user);

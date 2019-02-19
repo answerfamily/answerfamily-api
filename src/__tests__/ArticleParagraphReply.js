@@ -39,6 +39,7 @@ describe('Basic object type graph resolving', () => {
             }
             canDelete
           }
+          canDelete
           createdAt
           sources {
             id

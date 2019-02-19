@@ -46,6 +46,8 @@ type Query {
 
 type Mutation {
   createArticle(article: ArticleInput): Article
+  deleteArticle(articleId: String!): Boolean
+
   addParagraphToArticle(articleId: String!, paragraph: ParagraphInput!): Article
   addSourceToArticle(articleId: String!, source: ArticleSourceInput!): Article
 
@@ -78,6 +80,9 @@ type Article {
 
   # When used as search result, may contain this field that marks search hits in <HIGHLIGHT></HIGHLIGHT>
   _highlight: String
+
+  # If the current user can delete this article
+  canDelete: Boolean
 }
 
 input ArticleInput {

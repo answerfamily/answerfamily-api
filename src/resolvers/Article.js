@@ -29,4 +29,10 @@ module.exports = {
       noFetch: true,
     });
   },
+
+  async canDelete({ userId }, _, { userPromise }) {
+    const user = await userPromise;
+
+    return user && user.iss === userId;
+  },
 };

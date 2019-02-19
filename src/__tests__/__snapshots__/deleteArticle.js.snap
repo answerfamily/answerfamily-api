@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deleteArticle blocks non-logged in users 1`] = `
+Array [
+  [GraphQLError: Must log in first],
+]
+`;
+
+exports[`deleteArticle cannot delete article when author is not current user 1`] = `
+Array [
+  [GraphQLError: Only author can perform such action],
+]
+`;
+
+exports[`deleteArticle deletes article and associated paragraphs and paragraphReplies: article not found error 1`] = `[Error: Not Found]`;
