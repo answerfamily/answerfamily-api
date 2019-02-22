@@ -340,7 +340,7 @@ const Mutation = {
     assertLoggedIn(user);
 
     const text = reply.text.trim();
-    const note = reply.note.trim();
+    const note = (reply.note || '').trim();
     const replyId = generateId(`${text}|${note}`);
 
     // Make sure urlFetchRecords exist
