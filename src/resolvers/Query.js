@@ -86,7 +86,7 @@ async function resolveSearchForIndex(index, args, loaders) {
           ),
           min_term_freq: 1,
           min_doc_freq: 1,
-          max_query_terms: 25,
+          max_query_terms: 100,
 
           // When inText is used, query is large but documents are small.
           // for minimum_should_match we should cater to document length.
@@ -109,13 +109,9 @@ async function resolveSearchForIndex(index, args, loaders) {
         order: 'score',
         fields: {
           text: {
-            number_of_fragments: 1,
+            number_of_fragments: 1, // Return only 1 piece highlight text
+            fragment_size: 200, // word count of highlighted fragment
             type: 'plain',
-          },
-        },
-        highlight_query: {
-          match: {
-            text: `${args.filter.inText || ''} ${args.filter.contain || ''}`,
           },
         },
         pre_tags: ['<HIGHLIGHT>'],
