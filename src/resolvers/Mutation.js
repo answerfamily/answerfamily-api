@@ -343,8 +343,9 @@ const Mutation = {
     const note = (reply.note || '').trim();
     const replyId = generateId(`${text}|${note}`);
 
-    // Make sure urlFetchRecords exist
-    await scrapUrls(text, {
+    // Make sure urlFetchRecords exist.
+    // Don't need to wait, we don't show URL previews.
+    scrapUrls(text, {
       cacheLoader: loaders.latestUrlFetchRecordByUrlLoader,
       client: mongoClient,
       persist: true,
